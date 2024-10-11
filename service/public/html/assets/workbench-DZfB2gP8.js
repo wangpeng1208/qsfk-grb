@@ -1,0 +1,1 @@
+import{i as r}from"./index-DyfhlEKp.js";function e(){return r.post({url:"/adminapi/workbench/basic"})}function i(){return r.post({url:"/adminapi/workbench/channelCollectionOrderPriceSum"})}function o(){return r.post({url:"/adminapi/workbench/systemVersion"})}export{e as b,i as c,o as s};

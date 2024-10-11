@@ -1,0 +1,14 @@
+/.idea
+/.vscode
+/vendor
+*.log
+/runtime
+/public/upload
+/public/www
+/build
+.env
+.user.ini
+*.tar.gz
+/composer.lock
+/docs
+/update-bak
