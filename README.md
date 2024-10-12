@@ -1,8 +1,10 @@
 
 # 🚀🚀🚀骑士个人发卡系统
+
+得益于骑士企业自动发卡系统的灵活性，去繁就简快速构建出一套个人发卡系统。基于webman和vue3构建的个人发卡，采用极简设计还原出使用者初衷！
+
 <img src="./imgs/1.jpg" alt="qqss" >
 <img src="./imgs/4.jpg" alt="qqss" >
-得益于骑士企业自动发卡系统的灵活性，去繁就简快速构建出一套个人发卡系统。基于webman和vue3构建的个人发卡，采用极简设计还原出使用者初衷
 
 ### 主要特性
 
@@ -17,7 +19,6 @@
 
 <img src="./imgs/2.jpg" alt="qqss" >
 <img src="./imgs/3.jpg" alt="qqss" >
-
 <img src="./imgs/5.jpg" alt="qqss" >
 <img src="./imgs/6.jpg" alt="qqss" >
 <img src="./imgs/7.jpg" alt="qqss" >
@@ -65,7 +66,7 @@ http://域名/admin/login  账号 密码 admin  qqss.net
 
 ### 在线演示
 
-http://39.101.68.140:28080   账号 密码 admin  qqss.net
+http://kp.yo0.cn/admin/login   账号 密码 admin  qqss.net
 
 
 ### 🧐 二次开发联系
