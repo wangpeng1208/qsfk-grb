@@ -66,12 +66,6 @@ type InsertFnType = (url: string, poster?: string) => void;
 
 const editorConfig: Partial<IEditorConfig> = {
   MENU_CONF: {
-    // uploadImage: {
-    //   customBrowseAndUpload(insert: any) {
-    //     fileType.value = 'image';
-    //     insertFn = insert;
-    //   },
-    // },
     uploadImage: {
       // 自定义上传
       async customUpload(file: File, insertFn: InsertFnType) {

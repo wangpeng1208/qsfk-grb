@@ -227,8 +227,8 @@
 <script setup lang="ts">
 import { computed, ref, reactive, onMounted, watchEffect, watch } from 'vue';
 
-import { cateListSimple, getGoodsDetail, getCouponInfo } from '@/api/home/index.ts';
-import { payChannel, payOrder, goPayment } from '@/api/home/pay.ts';
+import { cateListSimple, getGoodsDetail, getCouponInfo } from '@/api/home/index';
+import { payChannel, payOrder, goPayment } from '@/api/home/pay';
 import { getGoodsOrderStatus } from '@/api/home/order';
 import { getSiteStore } from '@/store';
 import { useRoute } from 'vue-router';

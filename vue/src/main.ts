@@ -17,4 +17,4 @@ const app = createApp(App);
 app.use(install);
 app.mount('#app');
 
-console.log(' %c '.concat('骑士发卡个人版 v1.0', ' %c ' +  'www.qqss.net '), 'background: #269AFF; color: #FFFFFF; padding: 4px 0; border-radius: 4px 0px 0px 4px; ', 'background: #FFFFFF; color: #269AFF; padding: 2px 0; border-radius: 0px 4px 4px 0px;  border: 2px solid #269AFF;');
+console.log(' %c '.concat('骑士发卡个人版 v1.0.1', ' %c ' +  'www.qqss.net '), 'background: #269AFF; color: #FFFFFF; padding: 4px 0; border-radius: 4px 0px 0px 4px; ', 'background: #FFFFFF; color: #269AFF; padding: 2px 0; border-radius: 0px 4px 4px 0px;  border: 2px solid #269AFF;');

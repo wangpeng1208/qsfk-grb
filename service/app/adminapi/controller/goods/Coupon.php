@@ -1,15 +1,5 @@
 <?php
 
-// +----------------------------------------------------------------------
-// | 骑士发卡 [ 平顶山若拉网络科技有限公司，并保留所有权利 ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2022-2025 https://www.qqss.net All rights reserved.
-// +----------------------------------------------------------------------
-// | Licensed 骑士软件 并不是自由软件，商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
-// +----------------------------------------------------------------------
-// | Author: 契约
-// +----------------------------------------------------------------------
-
 namespace app\adminapi\controller\goods;
 
 use app\common\model\GoodsCoupon as GoodsCouponModel;
@@ -93,10 +83,7 @@ class Coupon extends Base
         if (count($ids) == 0)
             $this->error("没有选中项！");
         $where[] = ["id", "in", $ids];
-
-
-        $result = GoodsCouponModel::where($where)->delete();
-
+        $result  = GoodsCouponModel::where($where)->delete();
         return $result ? $this->success("成功删除优惠券") : $this->error("删除失败");
 
     }

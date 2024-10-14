@@ -29,7 +29,7 @@ router.beforeEach(async (to, from, next) => {
   // 默认为商家端
   let app = '';
   // 假设有其他应用 ，并用数组存储
-  const appList = ['admin', 'personal'];
+  const appList = ['admin'];
   // to.path中第一个/后的字符串,作为当前应用名称
   const toPathStart = to.path.split('/')[1];
   // to.path.split('/')[1] 不在appList中，则默认为商家端

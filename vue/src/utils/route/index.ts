@@ -3,7 +3,7 @@ import { shallowRef } from 'vue';
 
 import { RouteItem } from '@/api/model/permissionModel';
 import { RouteMeta } from '@/types/interface';
-import { BLANK_LAYOUT, EXCEPTION_COMPONENT, IFRAME, LAYOUT, PAGE_NOT_FOUND_ROUTE, PARENT_LAYOUT, PERSONAL_LAYOUT } from '@/utils/route/constant';
+import { BLANK_LAYOUT, EXCEPTION_COMPONENT, IFRAME, LAYOUT, PAGE_NOT_FOUND_ROUTE, PARENT_LAYOUT } from '@/utils/route/constant';
 
 // vite 3+ support dynamic import from node_modules
 const iconsPath = import.meta.glob('../../../node_modules/tdesign-icons-vue-next/esm/components/*.js');
@@ -82,9 +82,6 @@ function dynamicImport(dynamicViewsModules: Record<string, () => Promise<Recorda
 
 // 将背景对象变成路由对象
 export async function transformObjectToRoute<T = RouteItem>(routeList: RouteItem[]): Promise<T[]> {
-  const app = window.location.pathname.split('/')[1];
-  const com = app === 'personal' ? PERSONAL_LAYOUT : LAYOUT;
-  // Promise.all 所有的异步操作完成
   await Promise.all(
     routeList.map(async (route) => {
       const component = route.component as string;
@@ -94,7 +91,7 @@ export async function transformObjectToRoute<T = RouteItem>(routeList: RouteItem
           route.component = LayoutMap.get(component.toUpperCase());
         } else {
           route.children = [cloneDeep(route)];
-          route.component = com;
+          route.component = LAYOUT;
           route.meta.single = true;
           route.meta = (route.meta || {}) as RouteMeta;
         }

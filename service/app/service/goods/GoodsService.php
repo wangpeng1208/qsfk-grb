@@ -1,15 +1,5 @@
 <?php
 
-// +----------------------------------------------------------------------
-// | 骑士发卡 [ 平顶山若拉网络科技有限公司，并保留所有权利 ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2022-2025 https://www.qqss.net All rights reserved.
-// +----------------------------------------------------------------------
-// | Licensed 骑士软件 并不是自由软件，商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
-// +----------------------------------------------------------------------
-// | Author: 契约
-// +----------------------------------------------------------------------
-
 namespace app\service\goods;
 
 use think\facade\Db;
@@ -61,16 +51,6 @@ class GoodsService
                 $cards = $goods->cards()->where("status", 1)->limit($limit)->order("unfreeze_at desc,is_first desc,create_at desc,id desc")->select();
             } elseif ($goods->card_order == 2) {
                 $cards = $goods->cards()->where("status", 1)->limit($limit)->order("is_first desc,unfreeze_at desc")->orderRaw("rand()")->select();
-            } elseif ($goods->card_order == 3) {
-                $order->select_cards = $order->select_cards ? $order->select_cards : [];
-                $cards               = $goods->cards()->where("status", 1)->where("id", "in", $order->select_cards)->limit($limit)->order("unfreeze_at desc")->select();
-                // 自主选号的卡密不足时，补充其他卡密
-                if (count($cards) < $limit) {
-                    $tod_limit = $limit - count($cards);
-                    $tod_cards = $goods->cards()->where("status", 1)->where("id", "not in", $order->select_cards)->limit($tod_limit)->order("unfreeze_at desc,create_at asc,id asc")->select();
-                    // array_merge((array) $cards, (array) $tod_cards)
-                    $cards     = collect($cards)->merge($tod_cards);
-                }
             } else {
                 $cards = $goods->cards()->where("status", 1)->limit($limit)->order("unfreeze_at desc,is_first desc,create_at asc,id asc")->select();
             }

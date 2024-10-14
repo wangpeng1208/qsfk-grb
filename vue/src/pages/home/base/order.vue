@@ -187,7 +187,7 @@
 import { Link, MessagePlugin, Tag } from 'tdesign-vue-next';
 import { computed, ref, reactive, onMounted } from 'vue';
 
-import { cateListSimple } from '@/api/home/index.ts';
+import { cateListSimple } from '@/api/home/index';
 
 import { query } from '@/api/home/order';
 import { getSiteStore } from '@/store';

@@ -112,7 +112,7 @@
 <script setup lang="ts">
 import { computed, ref, watchEffect } from 'vue';
 
-import { cateListSimple } from '@/api/home/index.ts';
+import { cateListSimple } from '@/api/home/index';
 
 import { getSiteStore } from '@/store';
 import { useRoute } from 'vue-router';

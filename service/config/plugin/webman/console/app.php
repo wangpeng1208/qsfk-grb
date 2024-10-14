@@ -12,7 +12,7 @@ return [
 
     'private_key_file'    => '/etc/ssl/certs/ca-certificates.crt', // The file path for certificate or OpenSSL private key file.
 
-    'exclude_pattern'     => '#^(?!.*(composer.json|/.github/|/.idea/|/.vscode/|/.git/|/.setting/|/runtime/|/vendor-bin/|/build/|/upload/|/public/|/update-sql/|/docs/))(.*)$#',
+    'exclude_pattern'     => '#^(?!.*(composer.json|/.github/|/.idea/|/.vscode/|/.git/|/.setting/|/runtime/|/vendor-bin/|/build/|/upload/|/public/))(.*)$#',
 
     'exclude_files'       => [
         '.env',
@@ -25,7 +25,6 @@ return [
         'LICENSE.txt',
         'composer.json',
         'composer.lock',
-        'datebase.sql',
         '.user.ini',
         '*.sql',
         '.gitignore',

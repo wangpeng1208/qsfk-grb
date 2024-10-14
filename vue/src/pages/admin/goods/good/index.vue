@@ -160,7 +160,7 @@ const deleteAllCard = async (row: any) => {
   // 弹窗提示 是否删除
   const confirmDia = DialogPlugin({
     header: '提醒？',
-    body: '确定清空该商品所有未售虚拟卡吗？删除的虚拟卡将进入回收站！',
+    body: '确定清空该商品所有未售虚拟卡吗？',
     confirmBtn: '确认',
     onConfirm: ({ e }) => {
       confirmDia.hide();

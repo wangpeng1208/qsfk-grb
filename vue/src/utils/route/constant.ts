@@ -12,7 +12,5 @@ export const PAGE_NOT_FOUND_ROUTE = {
   name: '404Page',
   redirect: '/result/404',
 };
-// 买家布局
-export const PERSONAL_LAYOUT = () => import('@/pages/personal/components/layout.vue');
 
 

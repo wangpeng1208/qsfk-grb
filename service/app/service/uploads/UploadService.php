@@ -1,15 +1,5 @@
 <?php
 
-// +----------------------------------------------------------------------
-// | 骑士发卡 [ 平顶山若拉网络科技有限公司，并保留所有权利 ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2022-2025 https://www.qqss.net All rights reserved.
-// +----------------------------------------------------------------------
-// | Licensed 骑士软件 并不是自由软件，商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
-// +----------------------------------------------------------------------
-// | Author: 契约
-// +----------------------------------------------------------------------
-
 namespace app\service\uploads;
 
 use think\facade\Db;
@@ -27,7 +17,6 @@ class UploadService
      */
     public function upload($app, $file, $type, $user_id)
     {
-        $engine = conf('upload_type');
         switch ($type) {
             case 'image':
                 $ext_yes = ['image/jpeg', 'image/gif', 'image/png', 'image/svg+xml', 'image/x-icon',];
@@ -48,7 +37,6 @@ class UploadService
                     'application/octet-stream',
                     'text/plain'
                 ];
-                $engine = 'local';
                 $view_path = "/crt/{$app}/{$user_id}/" . date('Ymd');
                 $real_path = runtime_path() . $view_path;
                 break;
@@ -67,6 +55,7 @@ class UploadService
         // 获取文件后缀
         $ext  = strtolower($file->getUploadExtension());
         $name = bin2hex(pack('Nn', time(), random_int(1, 65535))) . '.' . $ext;
+        $size = $file->getSize();
         $file->move($real_path . '/' . $name);
         // 如果是证书文件 返回本地绝对路径
         if ($type === 'certificate') {
@@ -81,12 +70,10 @@ class UploadService
                 'cate_id'    => $cate_id,
                 'name'       => $file->getUploadName(),
                 'url'        => $file_url,
-                'file_size'  => $file->getSize(),
+                'file_size'  => $size,
                 'ext'        => pathinfo($file->getUploadName(), PATHINFO_EXTENSION),
-                'storage'    => $engine,
+                'storage'    => 'local',
                 'created_at' => date('Y-m-d'),
-                'user_id'    => $user_id,
-                'user_type'  => $app,
                 'file_type'  => 'image',
             ]);
         }

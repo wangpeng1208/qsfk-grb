@@ -15,14 +15,12 @@
           <t-select v-if="couponTypeValue === 2" v-model="formData.cate_id" placeholder="请选择商品分类" type="search" clearable :options="cateOptionsList" style="width: 415px" />
           <t-cascader v-if="couponTypeValue === 3" v-model="formData.goods_id" placeholder="请选择商品" type="search" clearable :options="cateOptionsList" style="width: 415px" trigger="hover" valueMode="onlyLeaf" />
         </t-form-item>
-
         <t-form-item label="折扣面额" name="amount" :tips="amountHelp">
           <t-space>
             <t-input-number v-model="formData.amount" theme="normal" placeholder="请填写数字" style="width: 415px" />
             <t-radio-group v-model="formData.type" :options="importType" />
           </t-space>
         </t-form-item>
-
         <t-form-item label="生成数量" name="quantity" tips="最多一次生成200张">
           <t-input-number v-model="formData.quantity" placeholder="填写优惠券生成数量" :max="200" :min="1" theme="normal" />
         </t-form-item>
@@ -33,15 +31,12 @@
         <t-form-item label="使用门槛" name="min_banlance" tips="此功能为满减优惠卷，超过此金额的订单才可使用的优惠券。不填则无限制">
           <t-input-number v-model="formData.min_banlance" placeholder="请填写数字" theme="normal" />
         </t-form-item>
-        <!-- 优惠券可使用次数 -->
         <t-form-item label="可使用次数" name="use_times" tips="优惠券可被使用次数">
           <t-input-number v-model="formData.use_times" placeholder="请填写使用次数" theme="normal" suffix="次" />
         </t-form-item>
-
         <t-form-item label="备注信息" name="remark">
           <t-textarea v-model="formData.remark" placeholder="可填写优惠券备注信息" :style="{ width: '415' }" />
         </t-form-item>
-
         <t-form-item>
           <div class="form-submit-confirm anim-wrapper">
             <t-button theme="primary" block size="large" type="submit" style="margin: 2px"> 提交 </t-button>

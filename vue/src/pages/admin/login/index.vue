@@ -87,8 +87,8 @@ const init = () => {
 };
 init();
 const INITIAL_DATA = {
-  username: 'admins',
-  password: '456789a',
+  username: '',
+  password: '',
 };
 
 const FORM_RULES: Record<string, FormRule[]> = {

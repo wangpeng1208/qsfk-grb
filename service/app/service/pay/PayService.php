@@ -1,15 +1,5 @@
 <?php
 
-// +----------------------------------------------------------------------
-// | 骑士发卡 [ 平顶山若拉网络科技有限公司，并保留所有权利 ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2022-2025 https://www.qqss.net All rights reserved.
-// +----------------------------------------------------------------------
-// | Licensed 骑士软件 并不是自由软件，商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
-// +----------------------------------------------------------------------
-// | Author: 契约
-// +----------------------------------------------------------------------
-
 namespace app\service\pay;
 
 use support\Container;
@@ -83,14 +73,6 @@ class PayService
         $channel = $this->invoke($order->channel->code);
         // 对应的支付渠道的支付方法
         return $channel->pay($order->trade_no, $title, $total_price);
-    }
-
-    // 退款
-    public function refund($order)
-    {
-        $channel = $this->invoke($order->channel->code);
-        // 对应的支付渠道的支付方法
-        return $channel->refund($order);
     }
 
     // 回调

@@ -115,7 +115,7 @@
 <script setup lang="ts">
 import { computed, ref, onMounted } from 'vue';
 
-import { cateListSimple, goodsListByCate } from '@/api/home/index.ts';
+import { cateListSimple, goodsListByCate } from '@/api/home/index';
 import { getSiteStore } from '@/store';
 
 import './d.css';
@@ -144,7 +144,7 @@ const initCateList = async () => {
 
 // 分页信息
 const pagination = ref({
-  defaultPageSize: 15,
+  defaultPageSize: 18,
   total: 0,
   defaultCurrent: 1,
 });

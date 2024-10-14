@@ -3,7 +3,7 @@ import { MessagePlugin } from 'tdesign-vue-next';
 import { RouteRecordRaw } from 'vue-router';
 
 import { getAdminMenuList } from '@/api/admin/permission/menu';
-import { getPersonalMenuList } from '@/api/permission';
+
 import { RouteItem } from '@/api/model/permissionModel';
 import router from '@/router';
 // import router, { homepageRouterList } from '@/router';
@@ -35,22 +35,6 @@ export const usePermissionStore = defineStore('permission', {
           try {
             asyncRoutes = (await getAdminMenuList()).data;
           } catch (error) {
-            MessagePlugin.error(error.response.data.msg);
-            if (error.response.status === 401) {
-              // 3s后跳转到登录页
-              setTimeout(() => {
-                window.location.href = '/';
-              }, 3000);
-            }
-            asyncRoutes = [];
-          }
-        }
-        // personal
-        if (app === 'personal') {
-          try {
-            asyncRoutes = (await getPersonalMenuList()).data.list;
-          } catch (error) {
-            console.log(error.response.data.msg);
             MessagePlugin.error(error.response.data.msg);
             if (error.response.status === 401) {
               // 3s后跳转到登录页

@@ -1,15 +1,5 @@
 <?php
 
-// +----------------------------------------------------------------------
-// | 骑士发卡 [ 平顶山若拉网络科技有限公司，并保留所有权利 ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2022-2025 https://www.qqss.net All rights reserved.
-// +----------------------------------------------------------------------
-// | Licensed 骑士软件 并不是自由软件，商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
-// +----------------------------------------------------------------------
-// | Author: 契约
-// +----------------------------------------------------------------------
-
 namespace app\home\controller;
 
 use app\service\pay\PayService;
@@ -21,7 +11,7 @@ class Pay extends Base
     // 获取支付方式 按pc还是h5
     public function payChannel()
     {
-        $platform = Channel::where(["status" => 1])->field(['id', 'title', 'is_available', 'paytype',  'show_name'])->order("sort desc")->select()->filter(
+        $platform = Channel::where(["status" => 1])->field(['id', 'title', 'is_available', 'paytype', 'show_name'])->order("sort desc")->select()->filter(
             function ($item) {
                 $item->channel_id   = $item->id;
                 $item->product_name = get_paytype($item->paytype)->name ?? ''; // 支付类型名
@@ -32,8 +22,8 @@ class Pay extends Base
                 return true;
             }
         );
-        $res    = $platform->toArray();
-        $result = [];
+        $res      = $platform->toArray();
+        $result   = [];
 
         // 创建一个数组来存储已经存在的 channel_id
         $channel_ids = [];
@@ -66,14 +56,14 @@ class Pay extends Base
     // 订单生成
     public function payOrder(OrderService $orderService)
     {
-        // 需要校验的数据
-        $post['goods_id']       = inputs('goods_id/s', '');
-        $post['contact']        = inputs('contact/s', '');
-        $post["quantity"]       = inputs("quantity/d", 0);
-        $post['coupon_code']    = inputs("coupon_code/s", '');
-        $post['card_password']  = inputs("pwdforsearch/s", "");
-        $post['pid']            = inputs("pid/s", "");
-        $data                   = $orderService->createOrder($post);
+        $data = $orderService->createOrder([
+            'goods_id'      => inputs('goods_id/s', ''),
+            'contact'       => inputs('contact/s', ''),
+            'quantity'      => inputs('quantity/d', 0),
+            'coupon_code'   => inputs('coupon_code/s', ''),
+            'card_password' => inputs('pwdforsearch/s', ''),
+            'pid'           => inputs('pid/s', ''),
+        ]);
         $this->success("订单创建成功！请及时支付！", $data);
     }
 
@@ -96,7 +86,7 @@ class Pay extends Base
 
                 case 3:
                     return view("pay/pay", [
-                        'msg' => "订单已退款，还付个鬼！",
+                        'msg' => "订单已退款！",
                     ]);
             }
         } catch (\Exception $e) {

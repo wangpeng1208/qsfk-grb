@@ -1,15 +1,5 @@
 <?php
 
-// +----------------------------------------------------------------------
-// | 骑士发卡 [ 平顶山若拉网络科技有限公司，并保留所有权利 ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2022-2025 https://www.qqss.net All rights reserved.
-// +----------------------------------------------------------------------
-// | Licensed 骑士软件 并不是自由软件，商业用途务必到官方购买正版授权, 以免引起不必要的法律纠纷.
-// +----------------------------------------------------------------------
-// | Author: 契约
-// +----------------------------------------------------------------------
-
 namespace app\adminapi\controller;
 
 use app\service\uploads\UploadService;
@@ -94,7 +84,6 @@ class Upload extends Base
     {
         $id      = inputs('id/d', 0);
         $name    = inputs('name');
-        $user_id = $this->user->id;
         if (empty($name)) {
             $this->error('分类名称不能为空');
         }
@@ -103,7 +92,6 @@ class Upload extends Base
         ];
         $res  = Db::name('system_uploads_category')->where([
             'id'      => $id,
-            'user_id' => $user_id
         ])->update($data);
         if ($res) {
             $this->success('编辑成功');
@@ -116,16 +104,13 @@ class Upload extends Base
     public function deleteCategory()
     {
         $id      = inputs('ids/d', 0);
-        $user_id = $this->user->id;
         $res     = Db::name('system_uploads_category')->where([
             'id'      => $id,
-            'user_id' => $user_id
         ])->delete();
         if ($res) {
             // 当前分类下的图片移动到默认分类
             Db::name('system_uploads')->where([
                 'cate_id' => $id,
-                'user_id' => $user_id
             ])->update([
                         'cate_id' => 0
                     ]);
@@ -142,8 +127,7 @@ class Upload extends Base
         $name    = inputs('name');
         $cate_id = inputs('cate_id', 0);
 
-        $where['user_id'] = $this->user->id;
-        $query            = SystemUploads::where($where);
+        $query            = new SystemUploads();
         if ($name) {
             $query = $query->where('name', 'like', "%$name%");
         }
@@ -167,14 +151,13 @@ class Upload extends Base
         }
         // 文件名不能超过20个字符
         if (mb_strlen($name) > 20) {
-            $this->error('名称不能超过20个字符');
+            $this->error('名称不能超过20个字符!');
         }
         $res = SystemUploads::where([
-            'id'         => $id,
-            'user_id'    => $this->user->id,
-            'updated_at' => date('Y-m-d')
+            'id'      => $id,
         ])->update([
-                    'name' => $name
+                    'name'       => $name,
+                    'updated_at' => date('Y-m-d')
                 ]);
         if ($res) {
             $this->success('修改成功');
@@ -192,7 +175,6 @@ class Upload extends Base
         }
         $res = SystemUploads::where([
             'id'      => explode(',', $ids),
-            'user_id' => $this->user->id
         ])->delete();
         if ($res) {
             $this->success('删除成功');

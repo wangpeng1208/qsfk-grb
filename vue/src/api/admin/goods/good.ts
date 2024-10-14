@@ -49,16 +49,17 @@ export function goodList() {
     url: '/adminapi/goods/good/goodList',
   });
 }
-// 卡密放回收站 emptiedCards
-export function emptiedCards(data: any) {
-  return request.post({
-    url: '/adminapi/goods/good/emptiedCards',
-    data,
-  });
-}
 // 商品分类 商品 树
 export function structure() {
   return request.post({
     url: '/adminapi/goods/good/structure',
+  });
+}
+
+// emptiedCards
+export function emptiedCards(data: any) {
+  return request.post({
+    url: '/adminapi/goods/good/emptiedCards',
+    data,
   });
 }
