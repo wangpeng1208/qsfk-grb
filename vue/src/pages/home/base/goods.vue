@@ -99,7 +99,7 @@
                     <h2 class="text-2xl font-bold text-gray-800">{{ goodsInfo.name }}</h2>
                   </div> -->
                   <div class="flex items-center justify-between"></div>
-                  <div class="flex items center p-4">
+                  <div class="flex items-center p-4">
                     <label for="contact" class="mr-5">商品价格</label>
                     <div>
                       <span class="text-xl font-bold text-red-400">￥{{ goodsInfo.price }}</span>
@@ -120,40 +120,42 @@
                     </div>
                   </div>
                   <t-divider> 开始下单 </t-divider>
-                  <div class="flex items center p-4">
-                    <label for="contact" class="mr-5 w-15">联系方式</label>
-                    <div class="mr-5 w-40">
-                      <t-input v-model="formData.contact" style="width: 260px" name="contact" :placeholder="contactText" clearable />
+                  <div class="flex items-center p-4 gap-1">
+                    <label for="contact" class="w-64">联系方式</label>
+                    <div class="flex-1">
+                      <t-input v-model="formData.contact" name="contact" :placeholder="contactText" clearable />
                     </div>
                   </div>
-                  <div class="flex items center p-4">
-                    <label for="num" class="mr-5 w-15">购买数量</label>
-                    <t-input-number v-model="formData.quantity" :step="1" :max="goodsInfo.cards_stock_count" :min="goodsInfo.limit_quantity" auto-width clearable @change="handleChange" style="width: 260px" />
+                  <div class="flex items-center p-4 gap-1">
+                    <label for="num" class="w-64">购买数量</label>
+                    <div class="flex-1">
+                      <t-input-number v-model="formData.quantity" :step="1" :max="goodsInfo.cards_stock_count" :min="goodsInfo.limit_quantity" auto-width clearable @change="handleChange" />
+                    </div>
                   </div>
 
-                  <div v-if="goodsInfo.coupon_type" class="flex items center p-4">
-                    <label for="num" class="mr-5 w-15">用优惠券</label>
-                    <div>
+                  <div v-if="goodsInfo.coupon_type" class="flex items-center p-4 gap-1">
+                    <label for="num" class="w-64">用优惠券</label>
+                    <div class="flex-1">
                       <t-switch v-model="couponBtnActive" />
                     </div>
                   </div>
 
-                  <div v-if="couponBtnActive && goodsInfo.coupon_type" class="flex items center p-4">
-                    <label for="num" class="mr-5 w-15">优惠券号</label>
-                    <div>
-                      <t-input v-model="formData.coupon_code" style="width: 260px" name="coupon_code" placeholder="请填写你的优惠券" />
+                  <div v-if="couponBtnActive && goodsInfo.coupon_type" class="flex items-center p-4 gap-1">
+                    <label for="num" class="w-64">优惠券号</label>
+                    <div class="flex-1">
+                      <t-input v-model="formData.coupon_code" name="coupon_code" placeholder="请填写你的优惠券" />
                     </div>
                   </div>
-                  <div v-if="!goodsInfo.buy_need_login && goodsInfo.take_card_type != 0" class="flex items center p-4">
-                    <label for="num" class="mr-5 w-15">取卡密码</label>
-                    <div>
-                      <t-input v-if="goodsInfo.take_card_type != 0" style="width: 260px" v-model="formData.pwdforsearch" placeholder="请输入取卡密码（6-20位）" />
+                  <div v-if="!goodsInfo.buy_need_login && goodsInfo.take_card_type != 0" class="flex items-center p-4 gap-1">
+                    <div class="w-64">取卡密码</div>
+                    <div class="flex-1">
+                      <t-input v-if="goodsInfo.take_card_type != 0" v-model="formData.pwdforsearch" placeholder="请输入取卡密码（6-20位）" />
                     </div>
                   </div>
-                  <div class="flex items center p-4">
-                    <label for="num" class="mr-5 w-15">选择支付方式</label>
+                  <div class="flex items-center p-4">
+                    <label for="num" class="mr-5 w-100">选择支付方式</label>
                   </div>
-                  <div class="flex items center p-4">
+                  <div class="flex items-center p-4">
                     <div class="variations__list" id="pay-type">
                       <span v-for="item in channel" class="pay-type btn" :class="payInfo.channel_id == item.channel_id ? 'active' : ''" @click="clickPayType(item.channel_id)">
                         <span style="float: left"> <img style="width: 21px" :src="getImgUrl(item.ico)" /> </span>
@@ -163,13 +165,13 @@
                     </div>
                   </div>
                   <!-- 立即支付 -->
-                  <div class="flex items center p-4">
+                  <div class="flex items-center p-4">
                     <button class="bg-blue-500 text-white px-40 py-2 ml-2" @click="pay">
                       (￥{{ paymoneyTotal }} <span v-if="goodsInfo.coupon_type && formData.coupon_code" class="s">原价：{{ paymoney }}</span
                       >) 立即下单
                     </button>
                   </div>
-                  <div class="flex items center p-4">
+                  <div class="flex items-center p-4">
                     <div v-if="payResult">支付成功！！ 订单号为：{{ tradeNo }}</div>
                   </div>
                 </div>

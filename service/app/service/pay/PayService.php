@@ -13,6 +13,11 @@ class PayService
     public function invoke($code)
     {
         $class = "\\app\\home\\collection\\" . $code;
+
+        if (!class_exists($class)) {
+            throw new \Exception("Class {$class} does not exist");
+        }
+
         return Container::get($class);
     }
 
@@ -22,10 +27,13 @@ class PayService
         if (empty($trade_no)) {
             throw new \Exception("订单号不能为空");
         }
+
         $order_master = OrderMaster::where("trade_no", $trade_no)->find();
+
         if (!$order_master) {
             throw new \Exception("不存在该订单号！");
         }
+        
         $order = $order_master->loadModel;
         if (!$order) {
             throw new \Exception("不存在该订单！");

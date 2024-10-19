@@ -1,55 +1,47 @@
 <template>
-  <div class="login-wrapper" :style="{
-    backgroundImage: bgImgData.url ? `url(${bgImgData.url})` : 'none',
-  }">
-    <div class="bg-backdrop-layout" style="-webkit-backdrop-filter: blur(25px); backdrop-filter: blur(25px)"></div>
+  <div
+    class="login-wrapper"
+    :style="{
+      background: bgImgData.url ? `url(${bgImgData.url})  center repeat` : 'none',
+    }"
+  >
+    <!-- <div class="bg-backdrop-layout" style="-webkit-backdrop-filter: blur(25px); backdrop-filter: blur(25px)"></div> -->
     <div class="h-full">
       <div class="login-container mx-auto">
-        <t-row>
-          <t-col :span="6">
-            <div class="cp loginf">
-              <div class="logo">
-                <img :src="siteStore.config.site_logo" alt="logo" style="max-width: 100px" />
-              </div>
-              <div class="systitle">-- 高性能虚拟产品寄售软件 @骑士个人版寄售系统</div>
+        <div class="cp">
+          <div class="title-container">
+            <div class="title margin-no">
+              管理员登录
             </div>
-          </t-col>
-          <t-col :span="6">
-            <div class="cp">
-              <div class="title-container">
-                <div class="title margin-no">管理员登录</div>
-              </div>
-              <t-form ref="form" :class="['item-container', `login-${type}`]" :data="formData" :rules="FORM_RULES"
-                label-width="0" @submit="onSubmit">
-                <template v-if="type == 'password'">
-                  <t-form-item name="username">
-                    <t-input v-model="formData.username" size="large" placeholder="请输入账号/手机号/邮箱">
-                      <template #prefix-icon>
-                        <t-icon name="user" />
-                      </template>
-                    </t-input>
-                  </t-form-item>
+          </div>
 
-                  <t-form-item name="password">
-                    <t-input v-model="formData.password" size="large" :type="showPsw ? 'text' : 'password'" clearable
-                      placeholder="请输入登录密码">
-                      <template #prefix-icon>
-                        <t-icon name="lock-on" />
-                      </template>
-                      <template #suffix-icon>
-                        <t-icon :name="showPsw ? 'browse' : 'browse-off'" @click="showPsw = !showPsw" />
-                      </template>
-                    </t-input>
-                  </t-form-item>
-                </template>
+          <t-form ref="form" class="item-container" :data="formData" :rules="FORM_RULES" label-width="0" @submit="onSubmit">
+            <template v-if="type == 'password'">
+              <t-form-item name="username">
+                <t-input v-model="formData.username" size="large" placeholder="请输入账号/手机号/邮箱">
+                  <template #prefix-icon>
+                    <t-icon name="user" />
+                  </template>
+                </t-input>
+              </t-form-item>
 
-                <t-form-item class="btn-container">
-                  <t-button block type="submit" size="large" :disabled="disabled"> {{ opt }} </t-button>
-                </t-form-item>
-              </t-form>
-            </div>
-          </t-col>
-        </t-row>
+              <t-form-item name="password">
+                <t-input v-model="formData.password" size="large" :type="showPsw ? 'text' : 'password'" clearable placeholder="请输入登录密码">
+                  <template #prefix-icon>
+                    <t-icon name="lock-on" />
+                  </template>
+                  <template #suffix-icon>
+                    <t-icon :name="showPsw ? 'browse' : 'browse-off'" @click="showPsw = !showPsw" />
+                  </template>
+                </t-input>
+              </t-form-item>
+            </template>
+
+            <t-form-item class="btn-container">
+              <t-button block type="submit" size="large" :disabled="disabled"> {{ opt }} </t-button>
+            </t-form-item>
+          </t-form>
+        </div>
       </div>
     </div>
     <footer class="copyright"><span v-html="siteInfoCopyright"></span></footer>
@@ -102,7 +94,7 @@ const form = ref<FormInstanceFunctions>();
 const formData = ref({ ...INITIAL_DATA });
 const showPsw = ref(false);
 
-const opt = ref('登录');
+const opt = ref('登 录');
 const disabled = ref(false);
 const onSubmit = async (ctx: SubmitContext) => {
   if (ctx.validateResult === true) {
@@ -125,7 +117,6 @@ const onSubmit = async (ctx: SubmitContext) => {
 // 底部信息
 const siteStore = useSiteStore();
 const siteInfoCopyright = computed(() => siteStore.config.site_info_copyright);
-
 </script>
 
 <style lang="less" scoped>

@@ -7,7 +7,6 @@ use think\facade\Db;
 class UploadService
 {
 
-
     /**
      * 文件上传
      * @param $app 所属应用

@@ -162,7 +162,7 @@ class Card extends Base
         if (empty(count($ids))) {
             $this->error("没有选中项！");
         }
-        $res = GoodsCardModel::where(["id", "in", $ids])->delete();
+        $res = GoodsCardModel::where("id", "in", $ids)->delete();
         return $res ? $this->success("删除成功！") : $this->error("删除失败！");
     }
 
@@ -172,7 +172,6 @@ class Card extends Base
     public function allDel()
     {
         GoodsCardModel::where('status', '<>', 2)->delete();
-
         $this->success("删除成功！");
     }
 

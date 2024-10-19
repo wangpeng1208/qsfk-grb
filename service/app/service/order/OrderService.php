@@ -2,7 +2,6 @@
 
 namespace app\service\order;
 
-use think\facade\Db;
 use app\common\model\Order;
 use app\service\goods\GoodsService;
 
@@ -26,35 +25,13 @@ class OrderService
         if ($order->status == 1) {
             throw new \Exception("订单已支付");
         }
-        Db::startTrans();
-        try {
-            $order_total_cost_price = 0;
-            // 总收益 自己商品的订单
-            $total_product_price = $order->total_product_price;
-            $this->updateOrderStatus($order, $total_product_price, $order_total_cost_price);
-            Db::commit();
-        } catch (\Exception $e) {
-            Db::rollback();
-            throw new \Exception($e->getMessage());
-        }
+        $order->finally_money = $order->total_product_price;
+        $order->status        = 1;
+        $order->success_at    = time();
+        $order->save();
         // 自动发货
         (new GoodsService())->sendOut($order->trade_no);
         return $order->toArray();
-    }
-
-    /**
-     * 更新订单状态
-     * @param [type] $order 订单实例
-     * @param [type] $finally_money 最终结算金额
-     * @param [type] $proxy_finally_money 代理最终结算金额
-     */
-    public function updateOrderStatus($order, $finally_money, $proxy_finally_money)
-    {
-        $order->finally_money       = $finally_money;
-        $order->proxy_finally_money = $proxy_finally_money;
-        $order->status              = 1;
-        $order->success_at          = time();
-        $order->save();
     }
 
     /**

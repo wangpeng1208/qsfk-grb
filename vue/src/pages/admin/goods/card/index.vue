@@ -32,7 +32,6 @@
       <template #status="{ row }">
         <t-tag v-if="row.status === 2" variant="light" theme="success">已售</t-tag>
         <t-tag v-else variant="light" theme="danger">未售</t-tag>
-        <t-tag v-if="row.is_cross === 1" variant="light" theme="success">跨站</t-tag>
       </template>
       <template #operation="{ row }">
         <t-space>
@@ -161,7 +160,7 @@ const setRowFrist = debounce((row: any) => {
 const batchDel = async () => {
   const confirmDia = DialogPlugin({
     header: '提醒',
-    body: `是否确认删除？点击确认后删除的卡密将被放置回收站`,
+    body: `是否确认删除？`,
     confirmBtn: '确认',
     onConfirm: ({ e }) => {
       confirmDia.hide();
@@ -190,7 +189,7 @@ const batchDel = async () => {
 const batchclearGoodsCards = async () => {
   const confirmDia = DialogPlugin({
     header: '提醒',
-    body: `确定要清空卡密库存吗？点击确认后，卡密库存将被移至回收站！`,
+    body: `确定要清空卡密库存吗？`,
     confirmBtn: '确认',
     onConfirm: ({ e }) => {
       confirmDia.hide();

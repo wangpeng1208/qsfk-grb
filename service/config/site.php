@@ -1,7 +1,7 @@
 <?php
 return [
     // 当前版本号
-    'version'              => getenv('APP_VERSION') ?: 'v1.0.1',
+    'version'              => getenv('APP_VERSION') ?: 'v1.0.2',
     // 是否是演示模式
     'is_demo'              => false,
     // 远程api地址

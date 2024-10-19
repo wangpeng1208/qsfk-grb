@@ -1,1 +1,0 @@
-import{i as n}from"./index-Bl4AiOyE.js";function a(i){return n.post({url:"/adminapi/config/config/getConfig",params:i})}function t(i){return n.post({url:"/adminapi/config/config/editConfig",data:i})}const e="/adminapi/upload/upload",f="";export{e as a,f as b,t as e,a as g};
