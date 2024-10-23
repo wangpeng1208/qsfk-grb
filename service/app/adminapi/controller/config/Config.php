@@ -15,11 +15,6 @@ class Config extends Base
         $field = inputs('field/a', []);
         $data  = [];
         foreach ($field as $value) {
-            // 敏感信息 留空
-            if($value == 'email_pass'){
-                $data[$value] = '******';
-                continue;
-            }
             $data[$value] = conf($value);
         }
         return $this->success('获取成功', $data);
