@@ -139,7 +139,6 @@
                       <t-switch v-model="couponBtnActive" />
                     </div>
                   </div>
-
                   <div v-if="couponBtnActive && goodsInfo.coupon_type" class="flex items-center p-4 gap-1">
                     <label for="num" class="w-64">优惠券号</label>
                     <div class="flex-1">
@@ -279,6 +278,9 @@ const initgoodsInfo = async () => {
       siteStore.setCurrentCate(cateInfo['id']);
       currentCate.value = cateInfo['id'];
     }
+    // 初始化联系方式
+    initContactLimitText();
+    // 初始化支付金额
     initPayMoney();
   }
 };
@@ -362,42 +364,24 @@ const loadChannel = async () => {
 loadChannel();
 
 const contactLimitText = ref('无限制');
-const contactText = ref('[必填]推荐填写QQ号或手机号!');
+const contactText = ref('填写QQ号或手机号!');
 const initContactLimitText = () => {
   if (goodsInfo.contact_limit === 'any') {
     contactLimitText.value = '任意字符串';
   } else if (goodsInfo.contact_limit === 'mobile') {
     contactLimitText.value = '只能输入手机号';
-    contactText.value = '[必填]请填写您的手机号!';
+    contactText.value = '请填写您的手机号!';
   } else if (goodsInfo.contact_limit === 'email') {
     contactLimitText.value = '只能输入邮箱';
-    contactText.value = '[必填]请填写您的邮箱!';
+    contactText.value = '请填写您的邮箱!';
   } else if (goodsInfo.contact_limit === 'qq') {
     contactLimitText.value = '只能输入QQ号';
-    contactText.value = '[必填]请填写您的QQ号!';
+    contactText.value = '请填写您的QQ号!';
   } else {
-    contactLimitText.value = '[必填]请输入联系方式';
+    contactLimitText.value = '请输入联系方式';
   }
 };
-initContactLimitText();
 
-const checkTagValue1 = ref([]);
-watch(
-  () => checkTagValue1.value,
-  (val) => {
-    if (val.includes(1)) {
-      contactText.value = '[必填]请填写您的手机号!';
-    } else {
-      initContactLimitText();
-    }
-    if (val.includes(2)) {
-      formData.isemail = 1;
-    } else {
-      formData.isemail = 0;
-    }
-    initPayMoney();
-  },
-);
 
 // 点击 优惠券 按钮
 const couponBtnActive = ref(false);
