@@ -430,6 +430,7 @@ const initGoodsListByCate = (id: number) => {
   });
 };
 const homePage = () => {
+  siteStore.setCurrentCate(0);
   router.push({ name: 'index' });
 };
 // 去订单查询页

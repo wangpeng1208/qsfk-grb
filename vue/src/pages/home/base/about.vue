@@ -164,6 +164,7 @@ const initGoodsListByCate = (id: number) => {
 };
 // 去首页
 const homePage = () => {
+  siteStore.setCurrentCate(0);
   router.push({ name: 'index' });
 };
 // 去订单查询页

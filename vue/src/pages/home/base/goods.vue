@@ -275,7 +275,7 @@ const initgoodsInfo = async () => {
     for (const key in res.data.cate) {
       // @ts-ignore
       cateInfo[key] = res.data.cate[key];
-      siteStore.setCurrentCate(cateInfo['id']);
+      // siteStore.setCurrentCate(cateInfo['id']);
       currentCate.value = cateInfo['id'];
     }
     // 初始化联系方式
