@@ -140,13 +140,10 @@ class Good extends Base
      */
     public function add()
     {
-        // 是否存在分类
-        $this->user->categorys()->find() ?: $this->error('请先添加分类');
-
         $post              = $this->check_post();
         $post['status']    = 1;
         $post['create_at'] = time();
-        $res               = GoodsModel::save($post);
+        $res               = GoodsModel::create($post);
         return $res ? $this->success("添加商品成功") : $this->error("添加商品失败");
     }
 
