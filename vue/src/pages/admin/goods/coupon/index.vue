@@ -1,32 +1,24 @@
 <template>
   <t-card title="优惠券列表" class="basic-container" :bordered="false">
-
     <div class="category-header c-flex">
       <div class="l">
         <t-space>
-          <t-select v-model="params.coupon_type" :clear="fetchData" empty="类型" placeholder="全部类型" type="search"
-            clearable :options="couponType" />
-          <t-select v-if="params.coupon_type === 2" v-model="params.cate_id" placeholder="请选择商品分类" type="search"
-            clearable :options="cateOptionsList" />
-          <t-cascader v-if="params.coupon_type === 3" v-model="params.goods_id" placeholder="请选择商品" type="search"
-            clearable :options="cateOptionsList" trigger="hover" />
-        
+          <t-select v-model="params.coupon_type" :clear="fetchData" empty="类型" placeholder="全部类型" type="search" clearable :options="couponType" />
+          <t-select v-if="params.coupon_type === 2" v-model="params.cate_id" placeholder="请选择商品分类" type="search" clearable :options="cateOptionsList" />
+          <t-cascader v-if="params.coupon_type === 3" v-model="params.goods_id" placeholder="请选择商品" type="search" clearable :options="cateOptionsList" trigger="hover" />
+
           <t-button theme="default" variant="outline" @click="searchData">查询</t-button>
         </t-space>
       </div>
     </div>
-    <t-table :data="list" :columns="listsColumns" row-key="id" vertical-align="top" :hover="list.length ? true : false"
-      :pagination="pagination" :selected-row-keys="selectedRowKeys" :loading="dataLoading"
-      :header-affixed-top="headerAffixedTop" max-height="auto" table-layout="auto" @page-change="rehandlePageChange"
-      @select-change="rehandleSelectChange">
+    <t-table :data="list" :columns="listsColumns" row-key="id" vertical-align="top" :hover="list.length ? true : false" :pagination="pagination" :selected-row-keys="selectedRowKeys" :loading="dataLoading" :header-affixed-top="headerAffixedTop" max-height="auto" table-layout="auto" @page-change="rehandlePageChange" @select-change="rehandleSelectChange">
       <template #topContent>
         <div class="mb15">
           <t-button @click="router.push({ name: 'adminGoodsCouponAdd' })">
             <template #icon><t-icon name="add" /></template>
             添加优惠券
           </t-button>
-          <t-button variant="base" theme="default" :disabled="!selectedRowKeys.length" @click="batchDel"> 批量删除
-          </t-button>
+          <t-button variant="base" theme="default" :disabled="!selectedRowKeys.length" @click="batchDel"> 批量删除 </t-button>
           <p v-if="!!selectedRowKeys.length" class="selected-count">已选{{ selectedRowKeys.length }}项</p>
         </div>
       </template>
@@ -60,7 +52,6 @@
         <result title="" tip="优惠券为空" type="list"> </result>
       </template>
     </t-table>
-
   </t-card>
 </template>
 
@@ -115,8 +106,6 @@ const fetchData = async () => {
   }
 };
 
-
-
 const params = ref({
   coupon_type: '' as number | string,
   name: '',
@@ -159,11 +148,9 @@ const initCateList = async (val: number) => {
   }
 };
 
-
 onMounted(() => {
   fetchData();
 });
-
 
 const selectedRowKeys = ref([]);
 
@@ -212,7 +199,6 @@ const batchDel = async () => {
     },
   });
 };
-
 </script>
 <style lang="less" scoped>
 .selected-count {

@@ -25,9 +25,7 @@
           <t-link v-perms="['adminapi/permission/menu/add']" theme="primary" hover="color" @click="editRow(0, row.id)">添加</t-link>
           <t-link v-perms="['adminapi/permission/menu/edit']" theme="primary" hover="color" @click="editRow(row.id)">编辑</t-link>
           <t-popconfirm content="确认删除吗" @confirm="deleteRow(row.id)">
-            <t-link v-perms="['adminapi/permission/menu/del']" theme="danger" hover="color">
-              删除
-            </t-link>
+            <t-link v-perms="['adminapi/permission/menu/del']" theme="danger" hover="color"> 删除 </t-link>
           </t-popconfirm>
         </t-space>
       </template>

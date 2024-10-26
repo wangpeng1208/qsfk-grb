@@ -1,11 +1,9 @@
 <template>
-  <t-card title="收款通道管理" class="basic-container" :bordered="false" style="min-height: calc(100vh - 160px);">
+  <t-card title="收款通道管理" class="basic-container" :bordered="false" style="min-height: calc(100vh - 160px)">
     <template #actions>
       <t-button v-perms="['adminapi/channel/collection/add']" theme="primary" @click="editRow()">添加通道</t-button>
     </template>
-    <t-base-table ref="tableRef" class="basic-table" row-key="id" :data="lists" :columns="columns"
-      :hover="lists.length > 0 ? true : false" :header-affixed-top="headerAffixedTop" max-height="auto"
-      table-layout="auto" :pagination="pagination" lazy-load @page-change="onPageChange">
+    <t-base-table ref="tableRef" class="basic-table" row-key="id" :data="lists" :columns="columns" :hover="lists.length > 0 ? true : false" :header-affixed-top="headerAffixedTop" max-height="auto" table-layout="auto" :pagination="pagination" lazy-load @page-change="onPageChange">
       <template #paytype="{ row }">
         <t-space align="center">
           <wp-image :src="findPayTypeIco(row.paytype)" :style="{ width: '30px', height: '30px' }" />
@@ -23,14 +21,10 @@
       </template>
       <template #operate="{ row }">
         <t-space>
-          <t-link v-perms="['adminapi/channel/collection/edit']" theme="primary" size="small"
-            @click="editRow(row.id)">编辑</t-link>
-          <t-link v-perms="['adminapi/channel/collectionAccount/list']" theme="primary" size="small"
-            @click="accountRow(row.id)">账号管理</t-link>
+          <t-link v-perms="['adminapi/channel/collection/edit']" theme="primary" size="small" @click="editRow(row.id)">编辑</t-link>
+          <t-link v-perms="['adminapi/channel/collectionAccount/list']" theme="primary" size="small" @click="accountRow(row.id)">账号管理</t-link>
           <t-popconfirm content="确认删除吗" @confirm="deleteRow(row.id)">
-            <t-link v-perms="['adminapi/channel/collection/del']" theme="danger" hover="color" size="small">
-              删除
-            </t-link>
+            <t-link v-perms="['adminapi/channel/collection/del']" theme="danger" hover="color" size="small"> 删除 </t-link>
           </t-popconfirm>
         </t-space>
       </template>
@@ -124,5 +118,4 @@ const findPayTypeIco = (id: number) => {
   const item = payTypeOptions.value.find((item: any) => item.value === id);
   return item ? item.ico : '';
 };
-
 </script>

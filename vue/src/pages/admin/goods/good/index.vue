@@ -3,8 +3,7 @@
     <div class="category-header c-flex">
       <div class="l">
         <t-space>
-          <t-select v-model="params.cate_id" :clear="fetchData" empty="没有分类" placeholder="全部分类" type="search" clearable
-            :options="categoryList" />
+          <t-select v-model="params.cate_id" :clear="fetchData" empty="没有分类" placeholder="全部分类" type="search" clearable :options="categoryList" />
           <t-input v-model="params.name" placeholder="请输入商品名" clearable>
             <template #suffix-icon>
               <search-icon />
@@ -14,9 +13,7 @@
         </t-space>
       </div>
     </div>
-    <t-base-table class="basic-table" :data="lists" :columns="COLUMNS" row-key="id" vertical-align="middle"
-      :hover="lists.length > 0 ? true : false" :pagination="pagination" :loading="dataLoading"
-      :header-affixed-top="headerAffixedTop" table-layout="auto" max-height="100%" @page-change="rehandlePageChange">
+    <t-base-table class="basic-table" :data="lists" :columns="COLUMNS" row-key="id" vertical-align="middle" :hover="lists.length > 0 ? true : false" :pagination="pagination" :loading="dataLoading" :header-affixed-top="headerAffixedTop" table-layout="auto" max-height="100%" @page-change="rehandlePageChange">
       <template #topContent>
         <t-button theme="primary" class="mb15" @click="router.push('/admin/goods/add')">
           <template #icon><t-icon name="add" /></template>
@@ -27,14 +24,10 @@
         <t-space direction="vertical" size="small" class="tag-demo light">
           <span>
             {{ row.name }}
-            <t-tag v-if="row.wholesale_discount == 1" title="支持批发优惠" theme="success" variant="light" size="small"
-              shape="round">惠</t-tag>
-            <t-tag v-if="row.coupon_type == 1" title="支持优惠券" theme="primary" variant="light" size="small"
-              shape="round">券</t-tag>
-            <t-tag v-if="row.take_card_type != 0" title="提卡必填或选填取卡密码" theme="warning" variant="light" size="small"
-              shape="round">取</t-tag>
-            <t-tag v-if="row.visit_type == 1" title="商品购买页面需要访问密码" theme="danger" variant="light" size="small"
-              shape="round">密</t-tag>
+            <t-tag v-if="row.wholesale_discount == 1" title="支持批发优惠" theme="success" variant="light" size="small" shape="round">惠</t-tag>
+            <t-tag v-if="row.coupon_type == 1" title="支持优惠券" theme="primary" variant="light" size="small" shape="round">券</t-tag>
+            <t-tag v-if="row.take_card_type != 0" title="提卡必填或选填取卡密码" theme="warning" variant="light" size="small" shape="round">取</t-tag>
+            <t-tag v-if="row.visit_type == 1" title="商品购买页面需要访问密码" theme="danger" variant="light" size="small" shape="round">密</t-tag>
           </span>
         </t-space>
       </template>
@@ -42,10 +35,7 @@
         <t-space size="small">
           <div v-if="row.cards_stock_counts === 0">缺货</div>
           <div v-else>
-            <t-link size="small" theme="primary" underline
-              @click="router.push(`/admin/goods/card?goods_id=${row.id}&status=1`)">
-              {{ row.cards_stock_counts }} 张
-            </t-link>
+            <t-link size="small" theme="primary" underline @click="router.push(`/admin/goods/card?goods_id=${row.id}&status=1`)"> {{ row.cards_stock_counts }} 张 </t-link>
             <t-space size="small">
               <t-link size="small" theme="danger" @click="deleteAllCard(row)">清空</t-link>
             </t-space>
@@ -53,13 +43,10 @@
         </t-space>
       </template>
       <template #cards_sold_counts="{ row }">
-        <t-link size="small" theme="primary" underline
-          @click="router.push(`/admin/goods/card?goods_id=${row.id}&status=2`)"> {{
-    row.cards_sold_counts }}张</t-link>
+        <t-link size="small" theme="primary" underline @click="router.push(`/admin/goods/card?goods_id=${row.id}&status=2`)"> {{ row.cards_sold_counts }}张</t-link>
       </template>
       <template #status="{ row }">
-        <t-switch v-model="row.status" :custom-value="[1, 0]" @click="changeStatus(row.id, row.status)">
-        </t-switch>
+        <t-switch v-model="row.status" :custom-value="[1, 0]" @click="changeStatus(row.id, row.status)"> </t-switch>
       </template>
       <template #create_at="{ row }">
         <span>{{ formatTime(row.create_at) }}</span>
@@ -67,8 +54,7 @@
 
       <template #operation="{ row }">
         <t-space>
-          <t-link theme="primary" hover="color" @click="router.push(`/admin/goods/card/add?goods_id=${row.id}`)"
-            size="small">补货</t-link>
+          <t-link theme="primary" hover="color" @click="router.push(`/admin/goods/card/add?goods_id=${row.id}`)" size="small">补货</t-link>
           <t-link theme="primary" hover="color" @click="editRow(row)" size="small">编辑</t-link>
           <t-link theme="danger" hover="color" @click="delRow(row)" size="small">删除</t-link>
         </t-space>
@@ -187,13 +173,11 @@ const deleteAllCard = async (row: any) => {
   });
 };
 
-
 const rehandlePageChange = (curr: any, pageInfo: any) => {
   pagination.value.defaultCurrent = curr.current;
   pagination.value.defaultPageSize = curr.pageSize;
   fetchData();
 };
-
 
 const delRow = async (row: any) => {
   const confirmDia = DialogPlugin({
@@ -251,4 +235,3 @@ const headerAffixedTop = computed(() => ({
   container: `.${prefix}-layout`,
 }));
 </script>
-

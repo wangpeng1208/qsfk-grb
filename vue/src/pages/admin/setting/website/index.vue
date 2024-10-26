@@ -32,7 +32,7 @@ const tabList = [
 ];
 </script>
 <style>
-.basic-container {
+.basic-containers {
   padding: 0 20px;
 }
 </style>

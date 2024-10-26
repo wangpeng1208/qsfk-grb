@@ -90,7 +90,7 @@
               <div v-if="goodLists.length">
                 <div class="bg-white">
                   <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-                    <div class="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-6 xl:grid-cols-6 xl:gap-x-8 grid-cols-1">
+                    <div class="grid gap-x-6 gap-y-10 grid-cols-2 sm:grid-cols-2 lg:grid-cols-6 xl:gap-x-8">
                       <a v-for="product in goodLists" :key="product.id" :href="product.href" class="group cursor-pointer" @click="goodsPage(product.id)">
                         <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
                           <img :src="product.image" :alt="product.imageAlt" class="h-full w-full object-cover object-center group-hover:opacity-75" />

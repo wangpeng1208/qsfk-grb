@@ -22,10 +22,8 @@
         <t-space>
           <t-link v-perms="['adminapi/channel/payType/edit']" theme="primary" size="small" @click="editRow(row.id)">编辑</t-link>
           <t-popconfirm content="确认删除吗" @confirm="deleteRow(row.id)">
-              <t-link v-perms="['adminapi/channel/payType/del']" theme="danger" hover="color" size="small">
-                删除
-              </t-link>
-            </t-popconfirm>
+            <t-link v-perms="['adminapi/channel/payType/del']" theme="danger" hover="color" size="small"> 删除 </t-link>
+          </t-popconfirm>
         </t-space>
       </template>
     </t-base-table>

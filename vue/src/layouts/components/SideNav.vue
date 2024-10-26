@@ -1,8 +1,6 @@
 <template>
   <div :class="[sideNavCls]">
-    <t-menu :class="menuCls" :theme="theme" :value="active" :collapsed="collapsed" :default-expanded="defaultExpanded"
-      :expand-mutex="expandMutex" :width="sidenavWidth">
-
+    <t-menu :class="menuCls" :theme="theme" :value="active" :collapsed="collapsed" :default-expanded="defaultExpanded" :expand-mutex="expandMutex" :width="sidenavWidth">
       <template #logo>
         <a v-if="showLogo" :class="`${prefix}-side-nav-logo-wrapper`" href="/">
           <img :src="getLogo()" :class="`${prefix}-side-nav-logo-${collapsed || collapsed2 ? 't' : 'tdesign'}-logo`" />
@@ -17,12 +15,14 @@
         </span>
       </template>
     </t-menu>
-    <div :class="`${prefix}-side-nav-placeholder${collapsed ? '-hidden' : ''}`" :style="{
-    flex: `0 0 ${sidenavWidth}`,
-    minWidth: sidenavWidth,
-  }"></div>
+    <div
+      :class="`${prefix}-side-nav-placeholder${collapsed ? '-hidden' : ''}`"
+      :style="{
+        flex: `0 0 ${sidenavWidth}`,
+        minWidth: sidenavWidth,
+      }"
+    ></div>
   </div>
-
 </template>
 
 <script setup lang="ts">
@@ -82,7 +82,6 @@ const props = defineProps({
 });
 
 const collapsed = computed(() => useSettingStore().isSidebarCompact);
-
 
 const expandMutex = computed(() => useSettingStore().expandMutex);
 
@@ -176,7 +175,6 @@ const getLogo = () => {
   margin: 0 var(--td-comp-margin-l);
 }
 
-
 :deep(.t-default-menu .t-menu__item:hover) {
   background-color: var(--td-bg-color-container-hover);
 }
@@ -235,7 +233,7 @@ const getLogo = () => {
   :deep(.t-default-menu__inner .t-menu__logo:not(:empty)) {
     border-bottom: none;
   }
-  :deep(.t-default-menu .t-menu__item.t-is-active:not(.t-is-opened)){
+  :deep(.t-default-menu .t-menu__item.t-is-active:not(.t-is-opened)) {
     background-color: transparent;
   }
 }

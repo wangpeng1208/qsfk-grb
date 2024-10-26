@@ -30,7 +30,7 @@
               <li class="flex items-center h-full mx-16" @click="orderPage">
                 <span class="header-item header-item-active hover:text-xenon-600 border-b-2 flex items-center h-full cursor-pointer transition-fast-out"> 查询订单 </span>
               </li>
-              
+
               <li class="flex items-center h-full mx-16" @click="aboutPage">
                 <span class="header-item hover:text-xenon-600 border-b-2 flex items-center h-full cursor-pointer transition-fast-out"> 联系我们 </span>
               </li>

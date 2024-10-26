@@ -3,8 +3,7 @@
     <div class="category-header">
       <t-space>
         <t-select v-model="params.cate_id" placeholder="全部分类" clearable :options="goodCateListOptions" />
-        <t-select v-model="params.goods_id" placeholder="全部商品" clearable :options="goodListOptions"
-          :keys="{ value: 'id', label: 'name' }" />
+        <t-select v-model="params.goods_id" placeholder="全部商品" clearable :options="goodListOptions" :keys="{ value: 'id', label: 'name' }" />
         <t-select v-model="params.status" placeholder="全部状态" clearable :options="statusList" />
         <t-input v-model="params.number" placeholder="请输入关键词" clearable>
           <template #suffix-icon>
@@ -15,9 +14,7 @@
         <t-button theme="primary" @click="searchData">查询</t-button>
       </t-space>
     </div>
-    <t-table :data="lists" :columns="listsColumns" row-key="id" :pagination="pagination"
-      :selected-row-keys="selectedRowKeys" :loading="dataLoading" :header-affixed-top="headerAffixedTop"
-      max-height="auto" table-layout="auto" @page-change="rehandlePageChange" @select-change="rehandleSelectChange">
+    <t-table :data="lists" :columns="listsColumns" row-key="id" :pagination="pagination" :selected-row-keys="selectedRowKeys" :loading="dataLoading" :header-affixed-top="headerAffixedTop" max-height="auto" table-layout="auto" @page-change="rehandlePageChange" @select-change="rehandleSelectChange">
       <template #topContent>
         <div class="mb15">
           <t-button theme="primary" @click="router.push('/admin/goods/card/add')">
@@ -35,8 +32,7 @@
       </template>
       <template #operation="{ row }">
         <t-space>
-          <t-link size="small" theme="primary" hover="color" @click="setRowFrist(row)"> <span v-if="row.is_first === 1"
-              style="color: rgb(8, 43, 139)"> 取消优先 </span> <span v-else> 优先销售 </span></t-link>
+          <t-link size="small" theme="primary" hover="color" @click="setRowFrist(row)"> <span v-if="row.is_first === 1" style="color: rgb(8, 43, 139)"> 取消优先 </span> <span v-else> 优先销售 </span></t-link>
           <t-link size="small" theme="primary" hover="color" @click="initDetail(row)">查看</t-link>
           <t-link size="small" theme="danger" hover="color" @click="delRow(row)">删除</t-link>
         </t-space>
@@ -211,7 +207,6 @@ const batchclearGoodsCards = async () => {
     },
   });
 };
-
 </script>
 
 <style lang="less" scoped>

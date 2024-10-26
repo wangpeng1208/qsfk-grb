@@ -86,7 +86,6 @@
               <div class="bg-white">
                 <!-- 商品内容 -->
                 <div class="p-4">
-         
                   <div class="flex text-gray-700 mt-4">
                     <label for="contact" class="mr-5 w-15">QQ</label>
                     <div class="mr-5 w-40">

@@ -6,11 +6,16 @@
           <t-select v-model="params.cate_id" clearable placeholder="请选择栏目分类" :options="categoryOptions" />
         </t-form-item>
         <t-form-item label="状态" name="status">
-          <t-select v-model="params.status" clearable placeholder="请选择状态" :options="[
-    { label: '全部', value: '' },
-    { label: '启用', value: '1' },
-    { label: '禁用', value: '0' },
-  ]" />
+          <t-select
+            v-model="params.status"
+            clearable
+            placeholder="请选择状态"
+            :options="[
+              { label: '全部', value: '' },
+              { label: '启用', value: '1' },
+              { label: '禁用', value: '0' },
+            ]"
+          />
         </t-form-item>
         <t-form-item label="添加时间" name="date_range">
           <t-date-range-picker enable-time-picker v-model="params.date_range" allow-input clearable cancel-range-select-limit />
@@ -27,15 +32,11 @@
         <t-button v-perms="['adminapi/article/article/add']" theme="primary" @click="editRow()">添加</t-button>
       </div>
     </div>
-    <t-base-table class="basic-table" ref="tableRef" row-key="id" :data="lists" :columns="columns"
-      :header-affixed-top="headerAffixedTop" max-height="auto" table-layout="auto" :pagination="pagination" lazy-load
-      :loading="dataLoading" @page-change="rehandlePageChange">
+    <t-base-table class="basic-table" ref="tableRef" row-key="id" :data="lists" :columns="columns" :header-affixed-top="headerAffixedTop" max-height="auto" table-layout="auto" :pagination="pagination" lazy-load :loading="dataLoading" @page-change="rehandlePageChange">
       <template #operate="{ row }">
         <t-space>
-          <t-link v-perms="['adminapi/article/article/edit']" theme="primary" size="small"
-            @click="editRow(row)">编辑</t-link>
-          <t-link v-perms="['adminapi/article/article/del']" theme="danger" size="small"
-            @click="deleteRow(row.id)">删除</t-link>
+          <t-link v-perms="['adminapi/article/article/edit']" theme="primary" size="small" @click="editRow(row)">编辑</t-link>
+          <t-link v-perms="['adminapi/article/article/del']" theme="danger" size="small" @click="deleteRow(row.id)">删除</t-link>
         </t-space>
       </template>
     </t-base-table>
@@ -50,7 +51,6 @@ import { del, list } from '@/api/admin/article/article';
 import { listSimple } from '@/api/admin/article/category';
 import { columns } from './components/constant';
 import EditPopup from './components/edit.vue';
-
 
 const params = reactive<any>({
   date_range: [],
@@ -85,6 +85,4 @@ const initCategory = async () => {
   }
 };
 initCategory();
-
-
 </script>

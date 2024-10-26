@@ -37,7 +37,7 @@ const dynamicComponent = computed(() => {
     case '403':
       return Result403Icon;
     case '404':
-    return Result404Icon; // 返回图片路径
+      return Result404Icon; // 返回图片路径
     case '500':
       return Result500Icon;
     case 'ie':

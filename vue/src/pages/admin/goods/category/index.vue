@@ -1,10 +1,26 @@
 <template>
   <t-card title="商品分类" class="basic-container" :bordered="false">
-    <t-table :data="lists" class="basic-table" drag-sort="row-handler" :columns="COLUMNS" row-key="id"
-      vertical-align="middle" :hover="lists.length > 0 ? true : false" :selected-row-keys="selectedRowKeys"
-      :loading="dataLoading" lazy-load :header-affixed-top="headerAffixedTop" max-height="100%" :pagination="pagination"
-      :filter-value="filterValue" @drag-sort="onDragSort" @page-change="rehandlePageChange"
-      @select-change="rehandleSelectChange" @filter-change="onFilterChange" table-layout="auto">
+    <t-table
+      :data="lists"
+      class="basic-table"
+      drag-sort="row-handler"
+      :columns="COLUMNS"
+      row-key="id"
+      vertical-align="middle"
+      :hover="lists.length > 0 ? true : false"
+      :selected-row-keys="selectedRowKeys"
+      :loading="dataLoading"
+      lazy-load
+      :header-affixed-top="headerAffixedTop"
+      max-height="100%"
+      :pagination="pagination"
+      :filter-value="filterValue"
+      @drag-sort="onDragSort"
+      @page-change="rehandlePageChange"
+      @select-change="rehandleSelectChange"
+      @filter-change="onFilterChange"
+      table-layout="auto"
+    >
       <template #topContent>
         <t-button v-perms="['adminapi/goods/category/add']" class="mb15" @click="addRow()">
           <template #icon><t-icon name="add" /></template>
@@ -13,9 +29,7 @@
       </template>
       <template #goods_count="{ row }">
         <t-space>
-          <t-link size="small" theme="primary" @click="router.push(`/admin/goods/index?cate_id=${row.id}`)"> {{
-    row.goods_count }}
-          </t-link>
+          <t-link size="small" theme="primary" @click="router.push(`/admin/goods/index?cate_id=${row.id}`)"> {{ row.goods_count }} </t-link>
         </t-space>
       </template>
       <template #status="{ row }">
@@ -30,14 +44,10 @@
 
       <template #operation="{ row }">
         <t-space>
-          <t-link size="small" theme="primary" hover="color"
-            @click="router.push(`/admin/goods/add?cate_id=${row.id}`)">添加商品</t-link>
-          <t-link size="small" v-perms="['adminapi/goods/card']" theme="primary" hover="color"
-            @click="router.push(`/admin/goods/card?cate_id=${row.id}`)">库存卡</t-link>
-          <t-link size="small" v-perms="['adminapi/goods/category/edit']" theme="primary" hover="color"
-            @click="editRow(row)">编辑</t-link>
-          <t-link size="small" v-perms="['adminapi/goods/category/del']" theme="danger" hover="color"
-            @click="delRow(row)">删除</t-link>
+          <t-link size="small" theme="primary" hover="color" @click="router.push(`/admin/goods/add?cate_id=${row.id}`)">添加商品</t-link>
+          <t-link size="small" v-perms="['adminapi/goods/card']" theme="primary" hover="color" @click="router.push(`/admin/goods/card?cate_id=${row.id}`)">库存卡</t-link>
+          <t-link size="small" v-perms="['adminapi/goods/category/edit']" theme="primary" hover="color" @click="editRow(row)">编辑</t-link>
+          <t-link size="small" v-perms="['adminapi/goods/category/del']" theme="danger" hover="color" @click="delRow(row)">删除</t-link>
         </t-space>
       </template>
       <template #empty>
@@ -118,7 +128,6 @@ const rehandlePageChange = (curr: any, pageInfo: any) => {
   pagination.value.defaultPageSize = curr.pageSize;
   fetchData();
 };
-
 
 // 编辑添加弹窗
 const editRef = ref();

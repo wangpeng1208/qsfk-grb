@@ -1,7 +1,6 @@
 <template>
   <t-card title="订单配置" class="basic-container" :bordered="false">
-    <t-form ref="formRef" label-align="left" :data="formData" :rules="FORM_RULES" :label-width="150"
-      style="width: 800px">
+    <t-form ref="formRef" label-align="left" :data="formData" :rules="FORM_RULES" :label-width="150" style="width: 800px">
       <t-form-item label="订单生成方式" name="order_trade_no_type" tips=" ">
         <!-- radio  -->
         <t-radio-group v-model="formData.order_trade_no_type" :options="tradeNoOptions" />
@@ -23,21 +22,24 @@
         <t-input v-model="formData.order_auto_close_time" clearable placeholder="请输入订单超时时间" suffix="分钟" />
       </t-form-item>
       <t-form-item label="禁用简单联系方式" name="order_query_blackcontact">
-        <t-textarea v-model="formData.order_query_blackcontact" clearable placeholder="请输入要禁用的简单联系方式"
-          tips="防止出现简单联系方式，使用“|”分隔" :autosize="{
-    minRows: 4,
-    maxRows: 10,
-  }" />
+        <t-textarea
+          v-model="formData.order_query_blackcontact"
+          clearable
+          placeholder="请输入要禁用的简单联系方式"
+          tips="防止出现简单联系方式，使用“|”分隔"
+          :autosize="{
+            minRows: 4,
+            maxRows: 10,
+          }"
+        />
       </t-form-item>
       <t-divider />
       <t-form-item label="下单频率限制" name="order_create_limit_time_by_ip" tips="n秒内只允许同一IP下单一次，防止爆单">
-        <t-input-number v-model="formData.order_create_limit_time_by_ip" theme="normal" :min="0" clearable
-          placeholder="请输入秒数" suffix="秒" />
+        <t-input-number v-model="formData.order_create_limit_time_by_ip" theme="normal" :min="0" clearable placeholder="请输入秒数" suffix="秒" />
       </t-form-item>
       <t-divider />
       <t-form-item label="查询订单限制天数" name="order_query_limitday" tips="PC查单通过联系方式查询时，允许查看最近多少天的订单。留空则表示30天">
-        <t-input-number v-model="formData.order_query_limitday" theme="normal" :min="0" clearable placeholder="请输入数字"
-          suffix="天" />
+        <t-input-number v-model="formData.order_query_limitday" theme="normal" :min="0" clearable placeholder="请输入数字" suffix="天" />
       </t-form-item>
       <t-form-item>
         <t-space size="small">

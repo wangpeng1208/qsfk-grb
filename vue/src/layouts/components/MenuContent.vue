@@ -51,12 +51,12 @@ const list = computed(() => {
 
 const menuIcon = (item: ListItemType) => {
   if (typeof item.icon === 'string') {
-    if(item.icon.startsWith('http')) {
-      return <img src={item.icon}  class="t-icon-img" />;
+    if (item.icon.startsWith('http')) {
+      return <img src={item.icon} class="t-icon-img" />;
     } else {
-      return <t-icon name={item.icon}  class="t-icon" />;
+      return <t-icon name={item.icon} class="t-icon" />;
     }
-  };
+  }
   const RenderIcon = item.icon;
   return RenderIcon;
 };

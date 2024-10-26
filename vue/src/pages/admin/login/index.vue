@@ -10,9 +10,7 @@
       <div class="login-container mx-auto">
         <div class="cp">
           <div class="title-container">
-            <div class="title margin-no">
-              管理员登录
-            </div>
+            <div class="title margin-no">管理员登录</div>
           </div>
 
           <t-form ref="form" class="item-container" :data="formData" :rules="FORM_RULES" label-width="0" @submit="onSubmit">

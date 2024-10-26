@@ -1,8 +1,7 @@
 <template>
   <t-layout :class="settingStore.showHeader ? `${prefix}-layout` : `${prefix}-layout-no-header`">
     <t-tabs v-if="settingStore.isUseTabsRouter" drag-sort theme="card" :class="`${prefix}-layout-tabs-nav`" :value="$route.path" :style="{ position: 'sticky', top: 0, width: '100%' }" @change="(value) => handleChangeCurrentTab(value as string)" @remove="handleRemove" @drag-sort="handleDragend">
-      <t-tab-panel v-for="(routeItem, index) in tabRouters" :key="`${routeItem.path}_${index}`" :value="routeItem.path" :removable="!routeItem.isHome" :draggable="!routeItem.isHome" >
-  
+      <t-tab-panel v-for="(routeItem, index) in tabRouters" :key="`${routeItem.path}_${index}`" :value="routeItem.path" :removable="!routeItem.isHome" :draggable="!routeItem.isHome">
         <template #label>
           <t-dropdown
             trigger="context-menu"
@@ -155,5 +154,4 @@ const handleDragend = (options: { currentIndex: number; targetIndex: number }) =
 //   // 从上到下淡出动画效果
 //   animation: fadeDown 1s ease-out;
 // }
-
 </style>

@@ -39,18 +39,6 @@ TDesign Vue Next Starter 是一个基于 TDesign，使用 `Vue3`、`Vite2`、`Pi
 - 多种空间布局
 - 内置 Mock 数据方案
 
-### 使用
-
-> 通过 `tdesign-starter-cli` 初始化项目仓库
-
-```bash
-## 1、安装 tdesign-starter-cli
-npm i tdesign-starter-cli@latest -g
-
-## 2、创建项目
-td-starter init
-```
-
 ### 开发
 
 ``` bash
@@ -60,6 +48,10 @@ npm install
 ## 启动项目
 npm run dev
 ```
+## 本地开发时 
+
+`.env.development` 里 VITE_API_URL 设为自己的服务地址
+
 
 ### 构建
 
@@ -69,6 +61,11 @@ npm run build
 
 ## 构建测试环境
 npm run build:test
+
+## 打包后 
+
+dist目录里的 index.html 移动到 html文件夹后    替换到   自己服务器public/html目录
+
 ```
 
 ### 其他

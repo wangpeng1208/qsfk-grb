@@ -1,27 +1,20 @@
 <template>
   <t-card title="快捷菜单" hover-shadow :bordered="false">
     <template #actions>
-      <t-button  @click="action">
+      <t-button @click="action">
         {{ actionTxt }}
       </t-button>
-      <t-button variant="outline" @click="add">
-        添加
-      </t-button>
+      <t-button variant="outline" @click="add"> 添加 </t-button>
     </template>
 
     <t-row :gutter="{ xs: 8, sm: 16, md: 20, lg: 20, xl: 20, xxl: 20 }">
       <t-col v-for="(item, index) in userMenu" :key="index" @click="goPage(item.name)" class="menu">
         <div title="" hover-shadow class="menu-card">
           <div class="menu-item">
-            <div :class="[
-    'icon',
-    getColorClass(index + 1)
-  ]">
+            <div :class="['icon', getColorClass(index + 1)]">
               <t-icon :name="item.icon" size="24px" />
             </div>
-            <p class="title">
-              {{ item.title }} <delete-icon @click="remove(item.id)" v-if="showRemoveIcon" />
-            </p>
+            <p class="title">{{ item.title }} <delete-icon @click="remove(item.id)" v-if="showRemoveIcon" /></p>
           </div>
         </div>
       </t-col>

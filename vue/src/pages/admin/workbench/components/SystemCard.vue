@@ -1,24 +1,30 @@
 <template>
-  <t-card title="版本信息" hover-shadow  :bordered="false">
+  <t-card title="版本信息" hover-shadow :bordered="false">
     <t-skeleton v-if="loading" :row-col="rowCol"></t-skeleton>
     <div v-else>
       <div class="flex leading-9">
         <div class="w-20">当前版本</div>
         <span>
-          <t-space>
-            {{ workbenchData?.version }}
-            <t-tag v-if="workbenchData?.authorize?.status" theme="success" hover="color" variant="light"> 已授权 </t-tag>
-            <t-tag v-else theme="danger" hover="color" variant="light"> 未授权 </t-tag>
-          </t-space>
+          <t-tag theme="success" hover="color" variant="light"> {{ workbenchData?.version }} </t-tag>
         </span>
       </div>
       <div class="flex leading-9">
         <div class="w-20">程序作者</div>
-        <span> {{ workbenchData?.author?.name }}({{ workbenchData?.author?.email }})</span>
+        <span> {{ workbenchData?.author?.email }}</span>
+      </div>
+      <div class="flex leading-9">
+        <div class="w-20">开发公司</div>
+        <span> {{ workbenchData?.author?.name }}</span>
       </div>
       <div class="flex leading-9">
         <div class="w-20">技术栈</div>
-        <span> {{ workbenchData?.framework?.frontend }} {{ workbenchData?.framework?.backend }}</span>
+        <span>{{ workbenchData?.framework?.frontend }} {{ workbenchData?.framework?.backend }}</span>
+      </div>
+      <div class="flex leading-9">
+        <div class="w-20">开源地址</div>
+        <span>
+          <a href="https://gitee.com/wp1208/qsfk-grb"><img src="https://gitee.com/wp1208/qsfk-grb/badge/star.svg?theme=white" alt="star" /></a>
+        </span>
       </div>
     </div>
   </t-card>

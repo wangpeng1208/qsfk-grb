@@ -3,9 +3,7 @@
     <template #title>
       <t-space align="center">
         添加库存
-        <t-button theme="primary" variant="text" @click="openGenerator">
-          卡密生成器
-        </t-button>
+        <t-button theme="primary" variant="text" @click="openGenerator"> 卡密生成器 </t-button>
         <template #separator>
           <t-divider layout="vertical" />
         </template>
@@ -18,11 +16,9 @@
       </t-button>
     </template>
     <!-- 表单内容 -->
-    <t-form ref="form" class="base-form" :data="formData" :rules="FORM_RULES" label-align="left" :label-width="100"
-      @submit="onSubmit">
+    <t-form ref="form" class="base-form" :data="formData" :rules="FORM_RULES" label-align="left" :label-width="100" @submit="onSubmit">
       <t-form-item label="选择商品" name="goods_id" tips="点击选择商品栏目后，继续点击选中商品">
-        <t-cascader v-model="formData.goods_id" placeholder="请选择商品" clearable :options="goodsList" trigger="hover"
-          :show-all-levels="false" valueMode="onlyLeaf" />
+        <t-cascader v-model="formData.goods_id" placeholder="请选择商品" clearable :options="goodsList" trigger="hover" :show-all-levels="false" valueMode="onlyLeaf" />
       </t-form-item>
 
       <t-form-item label="插入方式" name="order_type" help="">
@@ -37,15 +33,12 @@
         <wp-check-tag v-model="formData.split_type" :items="splitType" @actions="changeSplitType" />
       </t-form-item>
 
-      <t-form-item v-if="formData.import_type === 1" label="虚拟卡内容" name="content"
-        help="除了卡号和卡密之间有空格 其他地方不允许有空格 一次最多添加5000张">
+      <t-form-item v-if="formData.import_type === 1" label="虚拟卡内容" name="content" help="除了卡号和卡密之间有空格 其他地方不允许有空格 一次最多添加5000张">
         <t-textarea v-model="formData.content" :placeholder="textareaPlaceholder" :style="{ height: '400px' }" />
       </t-form-item>
 
-      <t-form-item v-if="formData.import_type === 2" label="TXT文件" name="file"
-        help="txt文件每行一个，每行除了卡号和卡密之间有空格 其他地方不允许有空格 一次最多添加5000行">
-        <t-upload v-model="formData.files" accept="text/plain" theme="custom" :auto-upload="false"
-          :abridge-name="[10, 8]" draggable @progress="onProgress">
+      <t-form-item v-if="formData.import_type === 2" label="TXT文件" name="file" help="txt文件每行一个，每行除了卡号和卡密之间有空格 其他地方不允许有空格 一次最多添加5000行">
+        <t-upload v-model="formData.files" accept="text/plain" theme="custom" :auto-upload="false" :abridge-name="[10, 8]" draggable @progress="onProgress">
           <template #dragContent="params">
             <ul v-if="formData.files && formData.files.length" style="padding: 0">
               <li v-for="file in formData.files" :key="file.name" style="list-style-type: none">{{ file.name }}</li>
@@ -54,8 +47,7 @@
               <p v-if="params && params.dragActive">释放鼠标</p>
               <t-link v-else-if="progress < 1">拖拽文件至此或点击上传文件</t-link>
             </template>
-            <t-button v-if="formData.files && formData.files.length" size="small"
-              style="margin-top: 36px">更换文件</t-button>
+            <t-button v-if="formData.files && formData.files.length" size="small" style="margin-top: 36px">更换文件</t-button>
             <!-- <span>数据状态：{{params}}</span> -->
           </template>
         </t-upload>
@@ -70,8 +62,7 @@
       </t-form-item>
 
       <t-form-item>
-        <t-button size="large" theme="primary" class="form-submit-confirm" type="submit" :loading="saveLoading">
-          提交 </t-button>
+        <t-button size="large" theme="primary" class="form-submit-confirm" type="submit" :loading="saveLoading"> 提交 </t-button>
       </t-form-item>
     </t-form>
     <GenratorDrawer ref="generatorRef" />

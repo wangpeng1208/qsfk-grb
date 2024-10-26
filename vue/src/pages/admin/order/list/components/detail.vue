@@ -1,7 +1,6 @@
 <template>
-  <t-drawer v-model:visible="visible" :close-on-overlay-click="true" :destroy-on-close="true" :size-draggable="true"
-    size="80%" :header="title" :on-confirm="onSubmit">
-    <div style="padding: 20px 0; max-width: 800px;margin: 0 auto;">
+  <t-drawer v-model:visible="visible" :close-on-overlay-click="true" :destroy-on-close="true" :size-draggable="true" size="80%" :header="title" :on-confirm="onSubmit">
+    <div style="padding: 20px 0; max-width: 800px; margin: 0 auto">
       <t-descriptions :title="`${fetchData.trade_no}的订单详情`" table-layout="auto" bordered>
         <t-descriptions-item label="订单号">{{ fetchData?.trade_no }}</t-descriptions-item>
         <t-descriptions-item label="交易流水号">{{ fetchData?.transaction_id }}</t-descriptions-item>
@@ -49,7 +48,6 @@
         <t-descriptions-item label="查询卡密">
           <a :href="'/order?orderId=' + fetchData.trade_no" target="_blank">查看</a>
         </t-descriptions-item>
-
       </t-descriptions>
     </div>
   </t-drawer>

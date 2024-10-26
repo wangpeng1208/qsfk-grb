@@ -4,8 +4,7 @@
       <a href="javascript:void(0)" @click="showSearchFrom = !showSearchFrom">{{ searchText }}</a>
     </template>
     <div class="category-header c-flex">
-      <row-search v-if="showSearchFrom" ref="searchFormRef" :pay-type-options="payTypeOptions"
-        @success="searchFetchData" />
+      <row-search v-if="showSearchFrom" ref="searchFormRef" :pay-type-options="payTypeOptions" @success="searchFetchData" />
     </div>
     <div class="category-header c-flex">
       <div class="l">
@@ -21,16 +20,13 @@
 
       <div class="r c-flex">
         <t-button @click="clearData" variant="outline">清空已关闭</t-button>
-        <t-button theme="danger" :disabled="!selectedRowKeys.length" @click="batchDel">选择删除<p
-            v-if="!!selectedRowKeys.length" class="selected-count">({{ selectedRowKeys.length }})</p></t-button>
-
+        <t-button theme="danger" :disabled="!selectedRowKeys.length" @click="batchDel"
+          >选择删除
+          <p v-if="!!selectedRowKeys.length" class="selected-count">({{ selectedRowKeys.length }})</p></t-button
+        >
       </div>
     </div>
-    <!-- table-layout="tableLayout ? 'auto' : 'fixed'" -->
-    <t-table size="small" :data="lists" :columns="columns" row-key="id" vertical-align="middle"
-      :hover="lists.length > 0 ? true : false" table-layout="auto" :pagination="pagination"
-      :header-affixed-top="headerAffixedTop" max-height="100%" @page-change="rehandlePageChange"
-      :selected-row-keys="selectedRowKeys" @select-change="rehandleSelectChange" lazy-load :loading="loading">
+    <t-table size="small" :data="lists" :columns="columns" row-key="id" vertical-align="middle" :hover="lists.length > 0 ? true : false" table-layout="auto" :pagination="pagination" :header-affixed-top="headerAffixedTop" max-height="100%" @page-change="rehandlePageChange" :selected-row-keys="selectedRowKeys" @select-change="rehandleSelectChange" lazy-load :loading="loading">
       <template #trade_no="{ row }">
         <t-tooltip placement="right" content="点击复制" theme="light">
           <div theme="primary" variant="outline" @click="copyText(row.trade_no)">{{ row.trade_no }}</div>
@@ -41,9 +37,7 @@
           <t-link theme="primary" @click="detailRow(row)" size="small">详情</t-link>
           <t-link hover="color" size="small" variant="outline" theme="primary" @click="goPage(row.id)">查看卡密</t-link>
           <t-popconfirm content="确认删除吗" @confirm="delRow(row)">
-            <t-link v-perms="['adminapi/order/order/del']" theme="danger" hover="color" size="small">
-              删除
-            </t-link>
+            <t-link v-perms="['adminapi/order/order/del']" theme="danger" hover="color" size="small"> 删除 </t-link>
           </t-popconfirm>
         </t-space>
       </template>

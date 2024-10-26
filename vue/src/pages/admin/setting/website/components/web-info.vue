@@ -1,9 +1,6 @@
 <template>
-  <div class="basic-container" :bordered="false">
+  <div class="basic-containers" :bordered="false">
     <t-form ref="formRef" label-align="left" :data="formData" :rules="FORM_RULES" :label-width="150" style="max-width: 900px">
-      <t-form-item v-if="formData.site_status === 0" label="网站关闭提示" name="site_close_tips" tips="网站关闭时显示的提示信息">
-        <t-input v-model="formData.site_close_tips" clearable placeholder="请填写网站关闭提示" />
-      </t-form-item>
       <t-form-item label="网站名称" name="site_name" tips="网站名称，显示在浏览器标签上">
         <t-input v-model="formData.site_name" clearable placeholder="请填写网站名称" />
       </t-form-item>
@@ -19,27 +16,28 @@
       <t-form-item label="网站域名" name="site_domain" tips="需要填写协议头(即https://或http://开头)" help="主站域名。用于资源链接和支付回调的地址生成补全">
         <t-input v-model="formData.site_domain" clearable placeholder="请输入网站域名" />
       </t-form-item>
-      <!-- <t-form-item label="联系地址" name="site_info_address" tips="">
-        <t-input v-model="formData.site_info_address" clearable placeholder="请填写联系地址" />
-      </t-form-item> -->
       <t-form-item label="客服邮箱" name="site_info_email" tips="">
         <t-input v-model="formData.site_info_email" clearable placeholder="请填写客服邮箱" />
       </t-form-item>
-
-      <!-- <t-form-item label="备案号码" name="site_info_icp">
-        <t-input v-model="formData.site_info_icp" clearable placeholder="请填写备案号码" />
-      </t-form-item> -->
       <t-form-item label="客服电话" name="site_info_tel">
         <t-input v-model="formData.site_info_tel" clearable placeholder="请填写客服电话" />
       </t-form-item>
-      <!-- <t-form-item label="客服电话描述" name="site_info_tel_desc">
-        <t-input v-model="formData.site_info_tel_desc" clearable placeholder="请填写客服电话描述" />
-      </t-form-item> -->
       <t-form-item label="客服QQ" name="site_info_qq">
         <t-input v-model="formData.site_info_qq" clearable placeholder="请填写客服QQ" />
       </t-form-item>
       <t-form-item label="前台网站logo" name="site_logo" tips="推荐宽高比2：1">
-        <wp-upload theme="image" :initial="formData" name="site_logo" app="admin" :data="{ type: 'image' }" @update="handleUpdateImage" />
+        <uploadImage
+          :url="formData.site_logo"
+          title="前台网站logo"
+          :style="{
+            maxWidth: '200px',
+            width: '200px',
+            height: '100px',
+          }"
+          :maxlength="1"
+          @setPic="(url: string) => handleUpdateImage('site_logo', url)"
+          opt
+        />
       </t-form-item>
       <t-form-item label="版权信息" name="site_info_copyright" tips="前台底部(支持html标签)">
         <div style="display: flex; flex-direction: column; width: 900px">
@@ -65,12 +63,10 @@ export default {
 <script setup lang="ts">
 import { FormRule, MessagePlugin } from 'tdesign-vue-next';
 import { reactive, ref } from 'vue';
-
+import uploadImage from '@/components/uploadPictures/image.vue';
 import { editConfig, getConfig } from '@/api/admin/config/config';
 
 const formData = reactive({
-  site_status: 1,
-  site_close_tips: '',
   site_name: '',
   site_subtitle: '',
   site_keywords: '',
@@ -83,11 +79,6 @@ const formData = reactive({
   site_info_qq: '',
   site_domain: '',
 });
-
-const handleUpdateImage = ({ name, url }: any) => {
-  // @ts-ignore
-  formData[name] = url;
-};
 
 // 获取配置
 const fetchConfig = async () => {
@@ -104,6 +95,7 @@ fetchConfig();
 const FORM_RULES: Record<string, FormRule[]> = {
   site_name: [{ required: true, message: '请填写网站名称' }],
   site_subtitle: [{ required: true, message: '请填写网站副标题' }],
+  site_domain: [{ required: true, message: '请填写网站域名' }],
 };
 const formRef = ref();
 const submit = async () => {
@@ -118,5 +110,9 @@ const submit = async () => {
       MessagePlugin.error(res.msg);
     }
   }
+};
+const handleUpdateImage = (fieldName: string, url: string) => {
+  // @ts-ignore
+  formData[fieldName] = url;
 };
 </script>

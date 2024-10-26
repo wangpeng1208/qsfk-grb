@@ -22,8 +22,7 @@
 
             <template #dropdown>
               <t-dropdown-menu>
-                <t-dropdown-item class="operations-dropdown-container-item" @click="handleLogout"> 退出登录
-                </t-dropdown-item>
+                <t-dropdown-item class="operations-dropdown-container-item" @click="handleLogout"> 退出登录 </t-dropdown-item>
               </t-dropdown-menu>
             </template>
           </t-dropdown>
@@ -122,7 +121,7 @@ const layoutCls = computed(() => [`${prefix}-header-layout`]);
 
 const menuCls = computed(() => {
   const { isFixed, layout, isCompact } = props;
-  if(layout == 'sub') {
+  if (layout == 'sub') {
     return [
       {
         [`${prefix}-header-menu`]: false,

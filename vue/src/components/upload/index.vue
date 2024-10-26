@@ -1,6 +1,5 @@
 <template>
-  <t-upload v-bind="$attrs" v-model="files" :action="imgUploadUrl" :headers="uploadHeader" :theme="theme"
-    :accept="acceptValue" :format-response="formatResponse" :data="data" clearable @remove="remove" />
+  <t-upload v-bind="$attrs" v-model="files" :action="imgUploadUrl" :headers="uploadHeader" :theme="theme" :accept="acceptValue" :format-response="formatResponse" :data="data" clearable @remove="remove" />
 </template>
 <script lang="ts">
 export default {
@@ -127,7 +126,6 @@ const initUploadUrl = () => {
       imgUploadUrl.value = `${baseUrl}${adminUpload}`;
       break;
   }
-
 };
 initUploadUrl();
 const user = localStorage.getItem(app.value) || '{}';

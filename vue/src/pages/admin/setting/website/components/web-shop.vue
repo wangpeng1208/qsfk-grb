@@ -1,5 +1,5 @@
 <template>
-  <div class="basic-container" :bordered="false">
+  <div class="basic-containers" :bordered="false">
     <t-form ref="formRef" label-align="left" :data="formData" :rules="FORM_RULES" :label-width="150" style="max-width: 900px">
       <t-form-item label="是否弹出协议" name="show_purchase_agreement" help="用于自动弹出售卡协议，下单时需要先同意协议才能购买">
         <t-radio-group
@@ -14,12 +14,21 @@
         <wp-editor v-model:model-value="formData.shop_buy_protocol" user-type="admin" height="300px" width="100%" mode="simple" />
       </t-form-item>
       <t-form-item label="商品缺省图" name="goods_default_img" tips="推荐宽高比1：1">
-        <wp-upload theme="image" :initial="formData" name="goods_default_img" app="admin" :data="{ type: 'image' }" @update="handleUpdateImage" />
+        <uploadImage
+          :url="formData.goods_default_img"
+          title="商品缺省图"
+          :style="{
+            maxWidth: '100px',
+            width: '100px',
+            height: '100px',
+          }"
+          :maxlength="1"
+          @setPic="(url: string) => handleUpdateImage('goods_default_img', url)"
+          opt
+        />
       </t-form-item>
 
-      <t-alert> 违禁词受影响位置 ：商品分类名、商品名、商品描述、商品详情 </t-alert>
-
-      <t-form-item label="状态开关" name="site_wordfilter_status" tips="违禁词功能是否开启">
+      <t-form-item label="状态开关" name="site_wordfilter_status" tips="违禁词功能是否开启;受影响位置 ：商品分类名、商品名、商品描述、商品详情">
         <t-radio-group
           v-model="formData.site_wordfilter_status"
           :options="[
@@ -58,7 +67,7 @@ export default {
 <script setup lang="ts">
 import { FormRule, MessagePlugin } from 'tdesign-vue-next';
 import { reactive, ref } from 'vue';
-
+import uploadImage from '@/components/uploadPictures/image.vue';
 import { editConfig, getConfig } from '@/api/admin/config/config';
 
 const formData = reactive({
@@ -69,10 +78,11 @@ const formData = reactive({
   site_wordfilter_danger: '',
 });
 
-const handleUpdateImage = ({ name, url }: any) => {
+const handleUpdateImage = (fieldName: string, url: string) => {
   // @ts-ignore
-  formData[name] = url;
+  formData[fieldName] = url;
 };
+
 // 获取邮置
 const fetchConfig = async () => {
   const { data } = await getConfig({

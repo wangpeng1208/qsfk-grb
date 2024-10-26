@@ -1,30 +1,45 @@
 <template>
-  <t-dialog v-model:visible="visible" :loading="loading" :destroy-on-close="true" :close-on-overlay-click="false"
-    :header="popupTitle" draggable :confirm-btn="saveBtn" :on-confirm="onSubmit" width="500px">
+  <t-dialog v-model:visible="visible" :loading="loading" :destroy-on-close="true" :close-on-overlay-click="false" :header="popupTitle" draggable :confirm-btn="saveBtn" :on-confirm="onSubmit" width="500px">
     <t-form ref="form" :data="categoryForm" :rules="rules" label-width="150" label-align="left">
       <t-form-item label="分类名称" name="name" tips="输入分类名称">
         <t-input v-model="categoryForm.name" placeholder="请输入分类名称" show-limit-number :minlength="2" />
       </t-form-item>
       <t-form-item label="分类图标" name="pic" tips="建议180*180">
-        <uploadImage :url="categoryForm.pic" title="分类图标" :style="{
-    maxWidth: '100px',
-    width: '100px',
-    height: '100px',
-  }" :maxlength="1" @setPic="setPic" />
+        <uploadImage
+          :url="categoryForm.pic"
+          title="分类图标"
+          :style="{
+            maxWidth: '100px',
+            width: '100px',
+            height: '100px',
+          }"
+          :maxlength="1"
+          @setPic="setPic"
+        />
       </t-form-item>
       <t-form-item label="分类大图" name="bg_pic" tips="建议468*340">
-        <uploadImage :url="categoryForm.bg_pic" title="分类大图" :style="{
-    maxWidth: '100px',
-    width: '100px',
-    height: '100px',
-  }" :maxlength="1" @setPic="setBgPic" opt />
+        <uploadImage
+          :url="categoryForm.bg_pic"
+          title="分类大图"
+          :style="{
+            maxWidth: '100px',
+            width: '100px',
+            height: '100px',
+          }"
+          :maxlength="1"
+          @setPic="setBgPic"
+          opt
+        />
       </t-form-item>
       <t-form-item label="栏目状态" name="status" tips="">
         <span>
-          <wp-check-tag v-model="categoryForm.status" :items="[
-    { label: '上架', value: 1 },
-    { label: '隐藏', value: 0 },
-  ]" />
+          <wp-check-tag
+            v-model="categoryForm.status"
+            :items="[
+              { label: '上架', value: 1 },
+              { label: '隐藏', value: 0 },
+            ]"
+          />
         </span>
       </t-form-item>
 
@@ -126,10 +141,10 @@ defineExpose({
   getDetail,
 });
 
-const setPic = async (url: any) => {
+const setPic = (url: any) => {
   categoryForm.pic = url;
 };
-const setBgPic = async (url: any) => {
+const setBgPic = (url: any) => {
   categoryForm.bg_pic = url;
 };
 </script>

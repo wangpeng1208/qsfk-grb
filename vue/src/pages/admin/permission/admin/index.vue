@@ -3,26 +3,19 @@
     <div class="c-flex">
       <row-search ref="searchFormRef" @success="fetchData" />
     </div>
-    <t-base-table class="basic-table" ref="tableRef" row-key="id" :data="lists" :columns="columns"
-      :hover="lists.length > 0 ? true : false" :header-affixed-top="headerAffixedTop" :pagination="pagination" lazy-load
-      table-layout="auto" max-height="auto" @page-change="onPageChange">
+    <t-base-table class="basic-table" ref="tableRef" row-key="id" :data="lists" :columns="columns" :hover="lists.length > 0 ? true : false" :header-affixed-top="headerAffixedTop" :pagination="pagination" lazy-load table-layout="auto" max-height="auto" @page-change="onPageChange">
       <template #topContent>
-        <t-button v-perms="['adminapi/permission/admin/add']" style="margin: 15px 0" theme="primary"
-          @click="editRow()">添加</t-button>
+        <t-button v-perms="['adminapi/permission/admin/add']" style="margin: 15px 0" theme="primary" @click="editRow()">添加</t-button>
       </template>
       <template #avatar="{ row }">
         <wp-image :src="row.avatar" style="width: 60px; height: 60px" shape="circle" />
       </template>
       <template #operate="{ row }">
         <t-space>
-          <t-link v-perms="['adminapi/permission/admin/edit']" theme="primary" hover="color"
-            @click="editRow(row.id)">编辑</t-link>
-          <t-link v-if="row.id != 1" v-perms="['adminapi/permission/admin/setRoles']" theme="primary" hover="color"
-            @click="roleRow(row.id)">分配角色</t-link>
+          <t-link v-perms="['adminapi/permission/admin/edit']" theme="primary" hover="color" @click="editRow(row.id)">编辑</t-link>
+          <t-link v-if="row.id != 1" v-perms="['adminapi/permission/admin/setRoles']" theme="primary" hover="color" @click="roleRow(row.id)">分配角色</t-link>
           <t-popconfirm content="确认删除吗" @confirm="deleteRow(row.id)">
-            <t-link theme="danger" v-perms="['adminapi/permission/admin/del']" hover="color">
-              删除
-            </t-link>
+            <t-link theme="danger" v-perms="['adminapi/permission/admin/del']" hover="color"> 删除 </t-link>
           </t-popconfirm>
         </t-space>
       </template>

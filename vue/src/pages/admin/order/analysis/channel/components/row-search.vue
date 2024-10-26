@@ -50,7 +50,6 @@ const fetchData = () => {
   emit('success', params);
 };
 
-
 const payTypeOptions = ref();
 // 加载支付分类
 const initPayTypeOptions = async () => {

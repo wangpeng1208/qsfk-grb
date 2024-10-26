@@ -382,7 +382,6 @@ const initContactLimitText = () => {
   }
 };
 
-
 // 点击 优惠券 按钮
 const couponBtnActive = ref(false);
 // 如果couponBtnActive激活则 formData.is_coupon = 1 否则 formData.is_coupon = 0
