@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2006~2023 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006~2025 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
@@ -14,6 +14,7 @@ declare (strict_types = 1);
 namespace think\db\concern;
 
 use think\db\Raw;
+use think\helper\Str;
 
 /**
  * JOIN和VIEW查询.
@@ -103,16 +104,12 @@ trait JoinAndViewQuery
             return $table;
         }
 
-        if ($join instanceof Raw) {
+        if ($join instanceof Raw || str_contains($join, '(')) {
             return $join;
         }
 
         $join = trim($join);
 
-        if (str_contains($join, '(')) {
-            // 使用子查询
-            return $join;
-        }
         // 使用别名
         if (str_contains($join, ' ')) {
             // 使用别名
@@ -125,7 +122,7 @@ trait JoinAndViewQuery
         }
 
         if ($this->prefix && !str_contains($table, '.') && !str_starts_with($table, $this->prefix)) {
-            $table = $this->getTable($table);
+            $table = $this->prefix . Str::snake($table) . $this->suffix;
         }
 
         if (!empty($alias) && $table != $alias) {

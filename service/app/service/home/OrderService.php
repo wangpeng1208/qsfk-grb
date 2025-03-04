@@ -316,8 +316,6 @@ class OrderService
         }
         // 统一订单库标识
         OrderMaster::create(["trade_no" => $post["trade_no"], "model" => 'Order']);
-        // 订单关闭定时器
-        (new OrderTimerService())->closeOrder($post["trade_no"]);
         return [
             // 订单号
             "trade_no"              => $post["trade_no"],

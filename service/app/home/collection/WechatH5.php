@@ -12,7 +12,7 @@ use app\common\model\ChannelAccount;
  * @var $trade_no string 外部单号
  * @var  $order object 订单
  * @var $config array 配置
- * @field  params 应用ID:appid|商户号:mch_id|商户v3私钥:mch_secret_key|商户私钥证书:mch_secret_cert|商户公钥证书:mch_public_cert_path
+ * @field  params 应用ID:appid|商户号:mch_id|商户v3私钥:mch_secret_key|商户私钥证书:mch_secret_cert|商户公钥证书:mch_public_cert_path|支付公钥证书序列号:cert_serial_no|支付公钥证书:wechat_public_cert_path
  */
 class WechatH5 extends PayService implements CollectionInterface
 {
@@ -43,12 +43,22 @@ class WechatH5 extends PayService implements CollectionInterface
                 // 文件名形如：apiclient_cert.pem
                 'mch_public_cert_path' => $this->order->channelAccount->params->mch_public_cert_path,
                 'notify_url'           => conf('site_domain') . '/wxpay/notify/' . $this->order->channel_account_id,
-               
+
                 // 'service_provider_id'  => '',
                 // 'attach'               => $this->trade_no,
                 // 选填-默认为正常模式。可选为： MODE_NORMAL, MODE_SANDBOX, MODE_SERVICE
                 'mode'                 => Pay::MODE_NORMAL,
             ];
+            // 如果配置了证书序列号,则添加平台证书配置
+            if (
+                isset($this->order->channelAccount->params->cert_serial_no) &&
+                isset($this->order->channelAccount->params->wechat_public_cert_path)
+            ) {
+                $this->config['wechat']['default']['wechat_public_cert_path'] = [
+                    $this->order->channelAccount->params->cert_serial_no =>
+                        $this->order->channelAccount->params->wechat_public_cert_path
+                ];
+            }
 
             // $this->config['logger'] = [
             //     'enable' => true,
@@ -70,6 +80,16 @@ class WechatH5 extends PayService implements CollectionInterface
                 'notify_url'           => conf('site_domain') . '/home/pay/notify?account_id=' . $channelAccount->id,
                 'mode'                 => Pay::MODE_NORMAL,
             ];
+            // 如果配置了证书序列号,则添加平台证书配置
+            if (
+                isset($channelAccount->params->cert_serial_no) &&
+                isset($channelAccount->params->wechat_public_cert_path)
+            ) {
+                $this->config['wechat']['default']['wechat_public_cert_path'] = [
+                    $channelAccount->params->cert_serial_no =>
+                        $channelAccount->params->wechat_public_cert_path
+                ];
+            }
         }
     }
 
@@ -88,12 +108,12 @@ class WechatH5 extends PayService implements CollectionInterface
             $data   = [
                 'out_trade_no' => $trade_no,
                 'amount'       => [
-                    'total' => intval($totalAmount* 100), //单位 分
+                    'total' => intval($totalAmount * 100), //单位 分
                 ],
                 'description'  => $subject, //订单标题
-                'scene_info' => [
+                'scene_info'   => [
                     'payer_client_ip' => request()->ip(),
-                    'h5_info' => [
+                    'h5_info'         => [
                         'type' => 'Wap',
                     ]
                 ],

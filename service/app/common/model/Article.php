@@ -53,9 +53,4 @@ class Article extends BaseModel
         return paramFilter(htmlspecialchars_decode($value));
     }
 
-    public static function onAfterRead($article)
-    {
-        $article->inc('views')->save();
-    }
-
 }

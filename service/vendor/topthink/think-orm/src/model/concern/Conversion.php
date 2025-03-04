@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2006~2023 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006~2025 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
@@ -125,7 +125,7 @@ trait Conversion
 
         $model = $this->relation[$relation] ?? $this->getRelationData($this->$relation());
 
-        if ($model instanceof Model) {
+        if ($model instanceof self) {
             foreach ($append as $key => $attr) {
                 $key = is_numeric($key) ? $attr : $key;
                 if (isset($this->data[$key])) {
@@ -147,7 +147,7 @@ trait Conversion
      *
      * @return $this
      */
-    public function append(array $append = [], bool $merge = false)
+    public function append(array $append, bool $merge = false)
     {
         $this->append = $merge ? array_merge($this->append, $append) : $append;
 
@@ -162,7 +162,7 @@ trait Conversion
      *
      * @return $this
      */
-    public function hidden(array $hidden = [], bool $merge = false)
+    public function hidden(array $hidden, bool $merge = false)
     {
         $this->hidden = $merge ? array_merge($this->hidden, $hidden) : $hidden;
 
@@ -177,7 +177,7 @@ trait Conversion
      *
      * @return $this
      */
-    public function visible(array $visible = [], bool $merge = false)
+    public function visible(array $visible, bool $merge = false)
     {
         $this->visible = $merge ? array_merge($this->visible, $visible) : $visible;
 
@@ -245,7 +245,7 @@ trait Conversion
         $data = array_merge($this->data, $this->relation);
 
         foreach ($data as $key => $val) {
-            if ($val instanceof Model || $val instanceof ModelCollection) {
+            if ($val instanceof self || $val instanceof ModelCollection) {
                 // 关联模型对象
                 if (isset($visible[$key]) && is_array($visible[$key])) {
                     $val->visible($visible[$key]);

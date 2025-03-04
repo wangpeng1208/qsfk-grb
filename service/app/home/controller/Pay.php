@@ -5,6 +5,7 @@ namespace app\home\controller;
 use app\service\pay\PayService;
 use app\service\home\OrderService;
 use app\common\model\Channel;
+use support\Request;
 
 class Pay extends Base
 {
@@ -105,10 +106,10 @@ class Pay extends Base
      * 支付回调方法
      * @return void
      */
-    public function notify($requests, $id = '')
+    public function notify(Request $request, $id = '')
     {
         $payService = new PayService();
-        $request    = request()->all();
+        $request    = $request->all();
         return $payService->notify($request, $id);
     }
 }

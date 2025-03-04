@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2006~2023 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006~2025 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
@@ -218,7 +218,7 @@ class DbManager
      *
      * @return ConnectionInterface
      */
-    public function connect(string $name = null, bool $force = false)
+    public function connect(?string $name = null, bool $force = false)
     {
         return $this->instance($name, $force);
     }
@@ -231,7 +231,7 @@ class DbManager
      *
      * @return ConnectionInterface
      */
-    protected function instance(string $name = null, bool $force = false): ConnectionInterface
+    protected function instance(?string $name = null, bool $force = false): ConnectionInterface
     {
         if (empty($name)) {
             $name = $this->getConfig('default', 'mysql');

@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2006~2023 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006~2025 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
@@ -16,7 +16,7 @@ namespace think\model\relation;
 use Closure;
 use think\Collection;
 use think\db\BaseQuery as Query;
-use think\Model;
+use think\model\contract\Modelable as Model;
 use think\model\Relation;
 
 /**
@@ -181,7 +181,7 @@ class HasMany extends Relation
         }
 
         return $this->query->alias($aggregate . '_table')
-            ->whereExp($aggregate . '_table.' . $this->foreignKey, '=' . $this->parent->getTable() . '.' . $this->localKey)
+            ->whereExp($aggregate . '_table.' . $this->foreignKey, '=' . $this->parent->getTable(true) . '.' . $this->localKey)
             ->fetchSql()
             ->$aggregate($field);
     }

@@ -101,7 +101,7 @@ class NotificationFake implements Fake, NotificationDispatcher, NotificationFact
      */
     public function assertSentOnDemandTimes($notification, $times = 1)
     {
-        $this->assertSentToTimes(new AnonymousNotifiable, $notification, $times);
+        return $this->assertSentToTimes(new AnonymousNotifiable, $notification, $times);
     }
 
     /**
@@ -163,13 +163,7 @@ class NotificationFake implements Fake, NotificationDispatcher, NotificationFact
      */
     public function assertNothingSent()
     {
-        $notificationNames = collect($this->notifications)
-            ->map(fn ($notifiableModels) => collect($notifiableModels)
-                ->map(fn ($notifiables) => collect($notifiables)->keys())
-            )
-            ->flatten()->join("\n- ");
-
-        PHPUnit::assertEmpty($this->notifications, "The following notifications were sent unexpectedly:\n\n- $notificationNames\n");
+        PHPUnit::assertEmpty($this->notifications, 'Notifications were sent unexpectedly.');
     }
 
     /**

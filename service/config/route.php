@@ -15,8 +15,8 @@ Route::get('/exception', [app\home\controller\Index::class, 'exception']);
 // 模板
 Route::group('/', function () {
   Route::fallback(function () {
-    $viewPath =  '/html/index.html';
-    return view(public_path() . $viewPath, [
+    $viewPath =  'public/html/index.html';
+    return view($viewPath, [
       'title'       => conf('site_subtitle') . ' - ' . conf('site_name'),
       'keywords'    => conf('site_keywords'),
       'description' => conf('site_desc'),

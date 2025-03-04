@@ -1,6 +1,6 @@
 <?php
 return [
-    'default' => 'redis',
+    'default' => 'file',
     'stores' => [
         'file' => [
             'driver' => 'file',

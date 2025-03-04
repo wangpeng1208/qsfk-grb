@@ -184,10 +184,9 @@ interface Enumerable extends Arrayable, Countable, IteratorAggregate, Jsonable, 
     /**
      * Dump the collection.
      *
-     * @param  mixed  ...$args
      * @return $this
      */
-    public function dump(...$args);
+    public function dump();
 
     /**
      * Get the items that are not present in the given items.
@@ -518,21 +517,17 @@ interface Enumerable extends Arrayable, Countable, IteratorAggregate, Jsonable, 
     /**
      * Group an associative array by a field or using a callback.
      *
-     * @template TGroupKey of array-key
-     *
-     * @param  (callable(TValue, TKey): TGroupKey)|array|string  $groupBy
+     * @param  (callable(TValue, TKey): array-key)|array|string  $groupBy
      * @param  bool  $preserveKeys
-     * @return static<($groupBy is string ? array-key : ($groupBy is array ? array-key : TGroupKey)), static<($preserveKeys is true ? TKey : int), TValue>>
+     * @return static<array-key, static<array-key, TValue>>
      */
     public function groupBy($groupBy, $preserveKeys = false);
 
     /**
      * Key an associative array by a field or using a callback.
      *
-     * @template TNewKey of array-key
-     *
-     * @param  (callable(TValue, TKey): TNewKey)|array|string  $keyBy
-     * @return static<($keyBy is string ? array-key : ($keyBy is array ? array-key : TNewKey)), TValue>
+     * @param  (callable(TValue, TKey): array-key)|array|string  $keyBy
+     * @return static<array-key, TValue>
      */
     public function keyBy($keyBy);
 
@@ -555,7 +550,7 @@ interface Enumerable extends Arrayable, Countable, IteratorAggregate, Jsonable, 
     /**
      * Concatenate values of a given key as a string.
      *
-     * @param  (callable(TValue, TKey): mixed)|string  $value
+     * @param  callable|string  $value
      * @param  string|null  $glue
      * @return string
      */
@@ -568,32 +563,6 @@ interface Enumerable extends Arrayable, Countable, IteratorAggregate, Jsonable, 
      * @return static
      */
     public function intersect($items);
-
-    /**
-     * Intersect the collection with the given items, using the callback.
-     *
-     * @param  \Illuminate\Contracts\Support\Arrayable<array-key, TValue>|iterable<array-key, TValue>  $items
-     * @param  callable(TValue, TValue): int  $callback
-     * @return static
-     */
-    public function intersectUsing($items, callable $callback);
-
-    /**
-     * Intersect the collection with the given items with additional index check.
-     *
-     * @param  \Illuminate\Contracts\Support\Arrayable<TKey, TValue>|iterable<TKey, TValue>  $items
-     * @return static
-     */
-    public function intersectAssoc($items);
-
-    /**
-     * Intersect the collection with the given items with additional index check, using the callback.
-     *
-     * @param  \Illuminate\Contracts\Support\Arrayable<array-key, TValue>|iterable<array-key, TValue>  $items
-     * @param  callable(TValue, TValue): int  $callback
-     * @return static
-     */
-    public function intersectAssocUsing($items, callable $callback);
 
     /**
      * Intersect the collection with the given items by key.
@@ -894,29 +863,12 @@ interface Enumerable extends Arrayable, Countable, IteratorAggregate, Jsonable, 
     public function search($value, $strict = false);
 
     /**
-     * Get the item before the given item.
-     *
-     * @param  TValue|(callable(TValue,TKey): bool)  $value
-     * @param  bool  $strict
-     * @return TValue|null
-     */
-    public function before($value, $strict = false);
-
-    /**
-     * Get the item after the given item.
-     *
-     * @param  TValue|(callable(TValue,TKey): bool)  $value
-     * @param  bool  $strict
-     * @return TValue|null
-     */
-    public function after($value, $strict = false);
-
-    /**
      * Shuffle the items in the collection.
      *
+     * @param  int|null  $seed
      * @return static
      */
-    public function shuffle();
+    public function shuffle($seed = null);
 
     /**
      * Create chunks representing a "sliding window" view of the items in the collection.
@@ -1150,7 +1102,7 @@ interface Enumerable extends Arrayable, Countable, IteratorAggregate, Jsonable, 
      *
      * @param  string|array<array-key, string>  $value
      * @param  string|null  $key
-     * @return static<array-key, mixed>
+     * @return static<int, mixed>
      */
     public function pluck($value, $key = null);
 

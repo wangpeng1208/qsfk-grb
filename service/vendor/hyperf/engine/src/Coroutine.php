@@ -126,4 +126,14 @@ class Coroutine implements CoroutineInterface
     {
         return SwooleCo::exists($id);
     }
+
+    /**
+     * @return iterable<int>
+     */
+    public static function list(): iterable
+    {
+        foreach (SwooleCo::list() as $cid) {
+            yield $cid;
+        }
+    }
 }

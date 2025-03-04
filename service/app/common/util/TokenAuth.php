@@ -1,5 +1,4 @@
 <?php
-
 namespace app\common\util;
 
 use Firebase\JWT\JWT;
@@ -7,10 +6,20 @@ use Firebase\JWT\Key;
 use Firebase\JWT\BeforeValidException;
 use Firebase\JWT\ExpiredException;
 use Firebase\JWT\SignatureInvalidException;
-use support\Cache;
 
 class TokenAuth
 {
+    /**
+     * 获取JWT密钥
+     */
+    private static function getSecretKey()
+    {
+        $key = config('jwt.secret_key');
+        if (!$key) {
+            throw new \Exception('JWT secret key not configured');
+        }
+        return $key;
+    }
 
     /**
      *创建token
@@ -22,8 +31,8 @@ class TokenAuth
      */
     public static function createToken(int $id, string $type, array $params = [], int $expire_time = 0): array
     {
-        $host              = request()->host();
-        $time              = time();
+        $host          = request()->host();
+        $time          = time();
         $params += [
             'iss' => $host,
             'aud' => $host,
@@ -31,13 +40,9 @@ class TokenAuth
             'nbf' => $time,
             'exp' => $time + $expire_time,
         ];
-        $alg               = 'HS256';
-        $params['jti']     = $id . "_" . $type;
-        $token             = JWT::encode($params, 'rolaa456$%^', $alg);
-        $cache_token       = Cache::get("token_" . $params['jti']);
-        $cache_token_arr   = $cache_token ?: [];
-        $cache_token_arr[] = $token;
-        Cache::set("token_" . $params['jti'], $cache_token_arr, $expire_time);
+        $alg           = 'HS256';
+        $params['jti'] = $id . "_" . $type;
+        $token         = JWT::encode($params, self::getSecretKey(), $alg);
         return compact('token', 'params');
     }
 
@@ -50,9 +55,6 @@ class TokenAuth
     public static function parseToken(string $type): array
     {
         $token = request()->header('authorization');
-        if (empty($token)) {
-            throw new \Exception('身份验证令牌不存在');
-        }
         $token = str_replace('Bearer ', '', $token);
         return self::parseCommonmToken($type, $token);
     }
@@ -67,24 +69,21 @@ class TokenAuth
     public static function parseCommonmToken($type, $token)
     {
         try {
-            $payload = JWT::decode($token, new Key('rolaa456$%^', 'HS256'));
-        } catch (SignatureInvalidException $signatureInvalidException) {
+            $payload = JWT::decode($token, new Key(self::getSecretKey(), 'HS256'));
+        } catch (SignatureInvalidException $e) {
             throw new \Exception('身份验证令牌无效');
-        } catch (BeforeValidException $beforeValidException) {
+        } catch (BeforeValidException $e) {
             throw new \Exception('身份验证令牌尚未生效');
-        } catch (ExpiredException $expiredException) {
+        } catch (ExpiredException $e) {
             throw new \Exception('身份验证会话已过期，请重新登录！');
-        } catch (\Exception $exception) {
+        } catch (\Exception $e) {
             throw new \Exception('身份验证令牌无效');
         }
         if (!empty($payload)) {
             $token_info = json_decode(json_encode($payload), true, 512, JSON_THROW_ON_ERROR);
 
             if (explode("_", $token_info['jti'])[1] != $type) {
-                throw new \Exception('身份验证令牌无效');
-            }
-            if (!empty($token_info) && !in_array($token, Cache::get('token_' . $token_info['jti'], []))) {
-                throw new \Exception('身份验证会话已过期，请重新登录！');
+                throw new \Exception('身份验证令牌类型无效');
             }
             $token_info['type'] = $type;
             return $token_info;
@@ -101,18 +100,6 @@ class TokenAuth
      */
     public static function clearToken(int $id, string $type, ?string $token = '')
     {
-        if (!empty($token)) {
-            $token_cache = Cache::get("token_" . $id . "_" . $type, []);
-            //todo 也可以通过修改过期时间来实现 todo 单点登录
-            if (!empty($token_cache)) {
-                if (($key = array_search($token, $token_cache)) !== false) {
-                    array_splice($token_cache, $key, 1);
-                }
-                Cache::set("token_" . $id . "_" . $type, $token_cache);
-            }
-        } else {
-            Cache::set("token_" . $id . "_" . $type, []);
-        }
-        return true;
+
     }
 }

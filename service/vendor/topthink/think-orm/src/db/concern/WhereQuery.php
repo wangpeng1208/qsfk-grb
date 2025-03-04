@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2006~2023 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006~2025 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
@@ -30,13 +30,13 @@ trait WhereQuery
      */
     public function where($field, $op = null, $condition = null)
     {
-        if ($field instanceof $this) {
+        if ($field instanceof self) {
             $this->parseQueryWhere($field);
-
             return $this;
         } elseif (true === $field || 1 === $field) {
             $this->options['where']['AND'][] = true;
-
+            return $this;
+        } elseif (empty($field)) {
             return $this;
         }
 
@@ -45,10 +45,17 @@ trait WhereQuery
             $this->options['key'] = is_null($condition) ? $op : $condition;
         }
 
+        $logic = 'AND';
         $param = func_get_args();
         array_shift($param);
 
-        return $this->parseWhereExp('AND', $field, $op, $condition, $param);
+        if (is_array($field) && !empty($field) && array_is_list($field)) {
+            return $this->where(function ($query) use ($param, $condition, $op, $field, $logic) {
+                return $query->parseWhereExp($logic, $field, $op, $condition, $param);
+            });
+        }
+
+        return $this->parseWhereExp($logic, $field, $op, $condition, $param);
     }
 
     /**
@@ -63,7 +70,6 @@ trait WhereQuery
         $this->options['where'] = $query->getOptions('where') ?? [];
 
         $via = $query->getOptions('via');
-
         if ($via) {
             foreach ($this->options['where'] as $logic => &$where) {
                 foreach ($where as $key => &$val) {
@@ -88,10 +94,17 @@ trait WhereQuery
      */
     public function whereOr($field, $op = null, $condition = null)
     {
+        $logic = 'OR';
         $param = func_get_args();
         array_shift($param);
 
-        return $this->parseWhereExp('OR', $field, $op, $condition, $param);
+        if (is_array($field) && !empty($field) && array_is_list($field)) {
+            return $this->where(function ($query) use ($param, $condition, $op, $field, $logic) {
+                return $query->parseWhereExp($logic, $field, $op, $condition, $param);
+            });
+        }
+
+        return $this->parseWhereExp($logic, $field, $op, $condition, $param);
     }
 
     /**
@@ -105,10 +118,17 @@ trait WhereQuery
      */
     public function whereXor($field, $op = null, $condition = null)
     {
+        $logic = 'XOR';
         $param = func_get_args();
         array_shift($param);
 
-        return $this->parseWhereExp('XOR', $field, $op, $condition, $param);
+        if (is_array($field) && !empty($field) && array_is_list($field)) {
+            return $this->where(function ($query) use ($param, $condition, $op, $field, $logic) {
+                return $query->parseWhereExp($logic, $field, $op, $condition, $param);
+            });
+        }
+
+        return $this->parseWhereExp($logic, $field, $op, $condition, $param);
     }
 
     /**
@@ -616,18 +636,18 @@ trait WhereQuery
 
         // 根据条件决定执行哪个查询
         if ($condition) {
-            $this->executeQuery($query);
+            $this->executeQuery($query, $condition);
         } elseif ($otherwise) {
-            $this->executeQuery($otherwise);
+            $this->executeQuery($otherwise, $condition);
         }
 
         return $this;
     }
 
-    protected function executeQuery(Closure | array $query): void
+    protected function executeQuery(Closure | array $query, $condition): void
     {
         if ($query instanceof Closure) {
-            $query($this);
+            $query($this, $condition);
         } elseif (is_array($query)) {
             $this->where($query);
         }

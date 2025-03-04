@@ -21,16 +21,6 @@ namespace support;
  */
 class Request extends \Webman\Http\Request
 {
-  public function isPost()
-  {
-    return $this->method() === 'POST';
-  }
-
-  public function isGet()
-  {
-    return $this->method() === 'GET';
-  }
-
   public function isMobile()
   {
     $userAgent = $this->header('user-agent');
