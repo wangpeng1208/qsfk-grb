@@ -23,12 +23,8 @@ class Login extends Base
         $validate = new \app\adminapi\validate\LoginValidate;
         $validate->failException(true)->check($data);
         $user = AdminUser::where('username', $data['username'])->findOrEmpty();
-        if ($user->isEmpty()) {
-            throw new \Exception('账号不存在');
-        }
-        if (!password_verify($data['password'], $user->password)) {
-            throw new \Exception('密码错误');
-        }
+        $user->isEmpty() && throw new \Exception('账号不存在');
+        password_verify($data['password'], $user->password) || throw new \Exception('密码错误');
 
         $token = (new UserService())->createToken($user->toArray(), 'admin');
         $data  = array_merge($user->toArray(), $token);

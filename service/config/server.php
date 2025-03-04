@@ -13,14 +13,6 @@
  */
 
 return [
-    'listen' => 'http://0.0.0.0:28080',
-    'transport' => 'tcp',
-    'context' => [],
-    'name' => 'webmans',
-    'count' => cpu_count() * 4,
-    'user' => '',
-    'group' => '',
-    'reusePort' => false,
     'event_loop' => '',
     'stop_timeout' => 2,
     'pid_file' => runtime_path() . '/webman.pid',

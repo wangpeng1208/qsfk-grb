@@ -92,12 +92,7 @@ class Role extends Base
             unset($data['id']);
             $res = AdminRoles::create($data);
         }
-
-        if ($res) {
-            $this->success('操作成功');
-        } else {
-            $this->error('操作失败');
-        }
+        return $res ? $this->success('操作成功') : $this->error('操作失败');
     }
 
     /**
@@ -110,11 +105,7 @@ class Role extends Base
         $data['id']    = inputs('id/d', 0);
         $data['rules'] = implode(',', inputs('rules/a', []));
         $res           = AdminRoles::update($data);
-        if ($res) {
-            $this->success('操作成功');
-        } else {
-            $this->error('操作失败');
-        }
+        return $res ? $this->success('操作成功') : $this->error('操作失败');
     }
 
     /**
@@ -125,10 +116,6 @@ class Role extends Base
     {
         $id  = inputs('id/d', 0);
         $res = AdminRoles::destroy($id);
-        if ($res) {
-            $this->success('操作成功');
-        } else {
-            $this->error('操作失败');
-        }
+        return $res ? $this->success('操作成功') : $this->error('操作失败');
     }
 }

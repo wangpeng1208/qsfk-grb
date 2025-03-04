@@ -114,9 +114,7 @@ class Collection extends Base
         $validate->scene('collection')->failException(true)->check($data);
         $codeType = inputs('codeType', 'collection');
         $codeList = array_column($this->codeList($codeType), 'value');
-        if (!in_array($data['code'], $codeList)) {
-            throw new \Exception('代码接口文件不存在');
-        }
+        !in_array($data['code'], $codeList) && throw new \Exception('代码接口文件不存在');
         return $data;
     }
 

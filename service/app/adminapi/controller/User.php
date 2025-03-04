@@ -58,9 +58,7 @@ class User extends Base
     {
         $menuId = $this->request->post('menu_id');
         $menu   = Db::name('admin_menu')->where('user_id', $this->user->id)->where('menu_id', $menuId)->find();
-        if ($menu) {
-            $this->error('已添加');
-        }
+        $menu && $this->error('已添加');
         $data = [
             'user_id' => $this->user->id,
             'menu_id' => $menuId,
@@ -77,9 +75,7 @@ class User extends Base
     {
         $menuId = $this->request->post('menu_id');
         $menu   = Db::name('admin_menu')->where('user_id', $this->user->id)->where('menu_id', $menuId)->find();
-        if (!$menu) {
-            $this->error('未添加');
-        }
+        !$menu && $this->error('未添加');
         Db::name('admin_menu')->where('user_id', $this->user->id)->where('menu_id', $menuId)->delete();
         $this->success('删除成功');
     }

@@ -62,9 +62,7 @@ class Upload extends Base
         $name    = inputs('name');
         $pid     = inputs('pid', 0);
         $user_id = $this->user->id;
-        if (empty($name)) {
-            $this->error('分类名称不能为空');
-        }
+        empty($name) && $this->error('分类名称不能为空');
         $data = [
             'app'     => $app,
             'name'    => $name,
@@ -72,52 +70,36 @@ class Upload extends Base
             'user_id' => $user_id
         ];
         $res  = Db::name('system_uploads_category')->insert($data);
-        if ($res) {
-            $this->success('创建成功');
-        } else {
-            $this->error('创建失败');
-        }
+        return $res ? $this->success('创建成功') : $this->error('创建失败');
     }
 
     // 编辑分类
     public function editCategory()
     {
-        $id      = inputs('id/d', 0);
-        $name    = inputs('name');
-        if (empty($name)) {
-            $this->error('分类名称不能为空');
-        }
-        $data = [
-            'name' => $name
-        ];
-        $res  = Db::name('system_uploads_category')->where([
-            'id'      => $id,
-        ])->update($data);
-        if ($res) {
-            $this->success('编辑成功');
-        } else {
-            $this->error('编辑失败');
-        }
+        $id   = inputs('id/d', 0);
+        $name = inputs('name');
+        empty($name) && $this->error('分类名称不能为空');
+        $res = Db::name('system_uploads_category')->where([
+            'id' => $id,
+        ])->update([
+                    'name' => $name
+                ]);
+        return $res ? $this->success('编辑成功') : $this->error('编辑失败');
     }
 
     // 删除分类
     public function deleteCategory()
     {
-        $id      = inputs('ids/d', 0);
-        $res     = Db::name('system_uploads_category')->where([
-            'id'      => $id,
+        $id  = inputs('ids/d', 0);
+        $res = Db::name('system_uploads_category')->where([
+            'id' => $id,
         ])->delete();
-        if ($res) {
-            // 当前分类下的图片移动到默认分类
-            Db::name('system_uploads')->where([
-                'cate_id' => $id,
-            ])->update([
-                        'cate_id' => 0
-                    ]);
-            $this->success('删除成功');
-        } else {
-            $this->error('删除失败');
-        }
+        $res && Db::name('system_uploads')->where([
+            'cate_id' => $id,
+        ])->update([
+                    'cate_id' => 0
+                ]);
+        return $res ? $this->success('删除成功') : $this->error('删除失败');
     }
 
     // fileList
@@ -127,13 +109,9 @@ class Upload extends Base
         $name    = inputs('name');
         $cate_id = inputs('cate_id', 0);
 
-        $query            = new SystemUploads();
-        if ($name) {
-            $query = $query->where('name', 'like', "%$name%");
-        }
-        if ($cate_id) {
-            $query = $query->where('cate_id', $cate_id);
-        }
+        $query = new SystemUploads();
+        $name && $query = $query->where('name', 'like', "%$name%");
+        $cate_id && $query = $query->where('cate_id', $cate_id);
         $res = $query->order('id desc')->paginate($limit);
         $this->success('获取成功', [
             'list'  => $res->items(),
@@ -146,41 +124,26 @@ class Upload extends Base
     {
         $id   = inputs('id/d', 0);
         $name = inputs('name');
-        if (empty($name)) {
-            $this->error('名称不能为空');
-        }
-        // 文件名不能超过20个字符
-        if (mb_strlen($name) > 20) {
-            $this->error('名称不能超过20个字符!');
-        }
+        empty($name) && $this->error('名称不能为空');
+        mb_strlen($name) > 20 && $this->error('名称不能超过20个字符!');
         $res = SystemUploads::where([
-            'id'      => $id,
+            'id' => $id,
         ])->update([
                     'name'       => $name,
                     'updated_at' => date('Y-m-d')
                 ]);
-        if ($res) {
-            $this->success('修改成功');
-        } else {
-            $this->error('修改失败');
-        }
+        return $res ? $this->success('修改成功') : $this->error('修改失败');
     }
 
     // 批量删除图片
     public function delete()
     {
         $ids = inputs('ids');
-        if (empty($ids)) {
-            $this->error('请选择要删除的图片');
-        }
+        empty($ids) && $this->error('请选择要删除的图片');
         $res = SystemUploads::where([
-            'id'      => explode(',', $ids),
+            'id' => explode(',', $ids),
         ])->delete();
-        if ($res) {
-            $this->success('删除成功');
-        } else {
-            $this->error('删除失败');
-        }
+        return $res ? $this->success('删除成功') : $this->error('删除失败');
     }
 
 }

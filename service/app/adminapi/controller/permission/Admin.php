@@ -82,12 +82,7 @@ class Admin extends Base
             $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
             $res              = AdminUserModel::create($data);
         }
-
-        if ($res) {
-            $this->success('操作成功');
-        } else {
-            $this->error('操作失败');
-        }
+        return $res ? $this->success('操作成功') : $this->error('操作失败');
     }
 
     /**
@@ -99,15 +94,9 @@ class Admin extends Base
     {
         // id 为 1 的用户不能删除
         $id = inputs('id/d', 0);
-        if ($id == 1) {
-            $this->error('不能删除超级管理员');
-        }
+        $id == 1 && $this->error('不能删除超级管理员');
         $res = AdminUserModel::destroy($id);
-        if ($res) {
-            $this->success('操作成功');
-        } else {
-            $this->error('操作失败');
-        }
+        return $res ? $this->success('操作成功') : $this->error('操作失败');
     }
 
     /**

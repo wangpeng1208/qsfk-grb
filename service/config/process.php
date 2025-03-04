@@ -12,13 +12,32 @@
  * @link      http://www.workerman.net/
  * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
+use support\Log;
+use support\Request;
+use app\process\Http;
 
-use Workerman\Worker;
+global $argv;
 
 return [
+    'webman' => [
+        'handler' => Http::class,
+        'listen' => 'http://0.0.0.0:28080',
+        'count' => cpu_count() * 4,
+        'user' => '',
+        'group' => '',
+        'reusePort' => false,
+        'eventLoop' => '',
+        'context' => [],
+        'constructor' => [
+            'requestClass' => Request::class,
+            'logger' => Log::channel('default'),
+            'appPath' => app_path(),
+            'publicPath' => public_path()
+        ]
+    ],
     // File update detection and automatic reload
     'monitor' => [
-        'handler' => process\Monitor::class,
+        'handler' => app\process\Monitor::class,
         'reloadable' => false,
         'constructor' => [
             // Monitor these directories
@@ -35,9 +54,10 @@ return [
                 'php', 'html', 'htm', 'env'
             ],
             'options' => [
-                'enable_file_monitor' => !Worker::$daemonize && DIRECTORY_SEPARATOR === '/',
+                'enable_file_monitor' => !in_array('-d', $argv) && DIRECTORY_SEPARATOR === '/',
                 'enable_memory_monitor' => DIRECTORY_SEPARATOR === '/',
             ]
         ]
-    ],
+    ]
 ];
+
