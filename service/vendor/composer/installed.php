@@ -3,7 +3,7 @@
         'name' => 'wp/qsfk-grb',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '2f4aebaf03c6ca056ec7eb47e33ac457bb5f8477',
+        'reference' => 'b98e4bdb30700320684781a85021fa2b43994f2d',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -226,15 +226,6 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
-        'illuminate/redis' => array(
-            'pretty_version' => 'v10.48.28',
-            'version' => '10.48.28.0',
-            'reference' => '446d36aeb21fd2b6719293a8d930ae9ac8135be0',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../illuminate/redis',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
         'illuminate/support' => array(
             'pretty_version' => 'v10.48.28',
             'version' => '10.48.28.0',
@@ -376,8 +367,8 @@
         'psr/container-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '^1.0',
-                1 => '1.1|2.0',
+                0 => '1.1|2.0',
+                1 => '^1.0',
             ),
         ),
         'psr/event-dispatcher' => array(
@@ -702,15 +693,6 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
-        'webman/redis' => array(
-            'pretty_version' => 'v2.1.2',
-            'version' => '2.1.2.0',
-            'reference' => '83893f0931e07906ba9dbf976126ad8338f40624',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../webman/redis',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
         'webman/think-orm' => array(
             'pretty_version' => 'v2.1.0',
             'version' => '2.1.0.0',
@@ -750,7 +732,7 @@
         'wp/qsfk-grb' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '2f4aebaf03c6ca056ec7eb47e33ac457bb5f8477',
+            'reference' => 'b98e4bdb30700320684781a85021fa2b43994f2d',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

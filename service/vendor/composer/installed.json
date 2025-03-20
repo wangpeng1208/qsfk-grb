@@ -1723,63 +1723,6 @@
             "install-path": "../illuminate/pipeline"
         },
         {
-            "name": "illuminate/redis",
-            "version": "v10.48.28",
-            "version_normalized": "10.48.28.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/illuminate/redis.git",
-                "reference": "446d36aeb21fd2b6719293a8d930ae9ac8135be0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/redis/zipball/446d36aeb21fd2b6719293a8d930ae9ac8135be0",
-                "reference": "446d36aeb21fd2b6719293a8d930ae9ac8135be0",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/collections": "^10.0",
-                "illuminate/contracts": "^10.0",
-                "illuminate/macroable": "^10.0",
-                "illuminate/support": "^10.0",
-                "php": "^8.1"
-            },
-            "suggest": {
-                "ext-redis": "Required to use the phpredis connector (^4.0|^5.0).",
-                "predis/predis": "Required to use the predis connector (^2.0.2)."
-            },
-            "time": "2025-01-21T16:06:22+00:00",
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "10.x-dev"
-                }
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Illuminate\\Redis\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylor@laravel.com"
-                }
-            ],
-            "description": "The Illuminate Redis package.",
-            "homepage": "https://laravel.com",
-            "support": {
-                "issues": "https://github.com/laravel/framework/issues",
-                "source": "https://github.com/laravel/framework"
-            },
-            "install-path": "../illuminate/redis"
-        },
-        {
             "name": "illuminate/support",
             "version": "v10.48.28",
             "version_normalized": "10.48.28.0",
@@ -4943,45 +4886,6 @@
                 "source": "https://github.com/webman-php/event/tree/v1.0.5"
             },
             "install-path": "../webman/event"
-        },
-        {
-            "name": "webman/redis",
-            "version": "v2.1.2",
-            "version_normalized": "2.1.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/webman-php/redis.git",
-                "reference": "83893f0931e07906ba9dbf976126ad8338f40624"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/webman-php/redis/zipball/83893f0931e07906ba9dbf976126ad8338f40624",
-                "reference": "83893f0931e07906ba9dbf976126ad8338f40624",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/redis": "^10.0 || ^11.0",
-                "workerman/webman-framework": "^2.1 || dev-master"
-            },
-            "time": "2025-02-14T11:36:24+00:00",
-            "type": "library",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "support\\": "src/support",
-                    "Webman\\Redis\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Webman redis",
-            "support": {
-                "issues": "https://github.com/webman-php/redis/issues",
-                "source": "https://github.com/webman-php/redis/tree/v2.1.2"
-            },
-            "install-path": "../webman/redis"
         },
         {
             "name": "webman/think-orm",
