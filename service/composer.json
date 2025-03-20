@@ -37,12 +37,10 @@
     "vlucas/phpdotenv": "^5.5.0",
     "hyperf/pimple": "^2.2",
     "php-di/php-di": "^6",
-    "illuminate/redis": "^10.48",
     "symfony/cache": "^7.1",
     "psr/simple-cache": "^3.0",
     "workerman/workerman": "~5.1",
     "webman/cache": "^2.1",
-    "webman/redis": "^2.1",
     "illuminate/events": "^10.48"
   },
   "suggest": {
