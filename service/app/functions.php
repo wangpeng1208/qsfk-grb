@@ -103,7 +103,7 @@ function get_random_string($length = 32)
  * 全球唯一的识别码
  * @return string
  */
-function generateProxyKey()
+function generateUniqueKey()
 {
     $key = md5(uniqid(md5(microtime(true)), true));
     return substr($key, 0, 8) . '-' . substr($key, 8, 4) . '-' . substr($key, 12, 4) . '-' . substr($key, 16, 4) . '-' . substr($key, 20, 12);
@@ -120,9 +120,9 @@ function generate_trade_no($flag = 'A')
 {
     //订单自定义
     if (conf('order_trade_no_type') == 0) {
-        $trade_no = conf('order_trade_no_profix') . date('ymdHis') . explode('-', generateProxyKey())[0];
+        $trade_no = conf('order_trade_no_profix') . date('ymdHis') . explode('-', generateUniqueKey())[0];
     } else {
-        $trade_no = date('ymdHis') . explode('-', generateProxyKey())[0];
+        $trade_no = date('ymdHis') . explode('-', generateUniqueKey())[0];
     }
     // 打款订单号
     if ($flag == 'G') {
