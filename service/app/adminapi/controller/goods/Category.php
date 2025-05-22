@@ -16,7 +16,8 @@ class category extends Base
         $with_search = $this->request->params([
             ['name/s', ''],
         ]);
-        $list        = GoodsCategoryModel::withSearch($with_search[0], $with_search[1])->order('sort desc, id desc')->paginate($this->limit)->each(function ($item) {
+
+        $list = GoodsCategoryModel::withSearch($with_search[0], $with_search[1])->order('sort desc, id desc')->paginate($this->limit)->each(function ($item) {
             $item->goods_count = $item->goods()->count();
         });
         $this->success('获取成功', [
@@ -38,12 +39,12 @@ class category extends Base
     private function post()
     {
         $data = [
-            'id'           => inputs('id/d', 0),
-            'name'         => inputs('name/s', ''),
-            'image'        => inputs('image/s', ''),
-            'sort'         => inputs('sort/d', 0),
-            'status'       => inputs('status/d', 1),
-            'create_at'    => time()
+            'id'        => inputs('id/d', 0),
+            'name'      => inputs('name/s', ''),
+            'image'     => inputs('image/s', ''),
+            'sort'      => inputs('sort/d', 0),
+            'status'    => inputs('status/d', 1),
+            'create_at' => time()
         ];
         // 数据校验
         $validate = new \app\adminapi\validate\goods\CategoryValidate;
@@ -64,9 +65,7 @@ class category extends Base
     {
         $data = $this->post();
         $res  = GoodsCategoryModel::create($data);
-        if (empty($res->sort)) {
-            $res::update(['sort' => $res->id], ['id' => $res->id]);
-        }
+        empty($res->sort) && GoodsCategoryModel::update(['sort' => $res->id], ['id' => $res->id]);
         $this->success("添加成功！");
     }
 
@@ -84,14 +83,10 @@ class category extends Base
     public function del()
     {
         $ids = inputs('ids/a', []);
-        if (empty($ids)) {
-            $this->error("请选择要删除的商品栏目！");
-        }
+        empty($ids) && $this->error("请选择要删除的商品栏目！");
         foreach ($ids as $id) {
             $data = $this->getCategory($id);
-            if ($data->goods()->count()) {
-                $this->error("该分类下存在商品，暂时不能删除！");
-            }
+            $data->goods()->count() && $this->error("该分类下存在商品，暂时不能删除！");
             $data->delete();
         }
         $this->success("删除成功！");
@@ -103,12 +98,7 @@ class category extends Base
         $field = inputs("field/s");
         $value = inputs("value/d");
         $res   = $cate->allowField(['status', 'sort', 'is_show'])->save([$field => $value]);
-        if ($res) {
-            $this->success("操作成功！");
-        } else {
-            $this->error("操作失败！");
-        }
-
+        return $res ? $this->success("操作成功！") : $this->error("操作失败！");
     }
 
     // 获取分类
