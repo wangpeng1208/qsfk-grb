@@ -124,9 +124,7 @@ class CollectionAccount extends Base
     $account    = ChannelAccountModel::where([
       'id' => $account_id,
     ])->find();
-    if (empty($account)) {
-      return $this->error('账号不存在');
-    }
+    empty($account) && $this->error('账号不存在');
     $status          = inputs('status/d', 1);
     $account->status = $status;
     $res             = $account->save();
