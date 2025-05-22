@@ -3,7 +3,6 @@
 namespace app\adminapi\controller;
 
 use think\facade\Db;
-use support\Cache;
 use app\common\util\RoleAuth;
 use app\common\model\SystemMenu;
 
@@ -16,11 +15,6 @@ class User extends Base
      */
     public function getAdminUserInfo(RoleAuth $roleAuth)
     {
-        $visitor_id = inputs('visitor_id/d', 0);
-        if ($visitor_id) {
-            $data = array_unique(array_merge(Cache::get($visitor_id) ?? [], [$this->user->id]));
-            Cache::set($visitor_id, $data, 300);
-        }
         $perms = $roleAuth->getUserPerms($this->user);
 
         $this->success('success', [
