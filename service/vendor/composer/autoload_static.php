@@ -168,10 +168,10 @@ class ComposerStaticInit9a8811a695ee1e37f8844686c4b86998
         ),
         'think\\' => 
         array (
-            0 => __DIR__ . '/..' . '/topthink/think-container/src',
-            1 => __DIR__ . '/..' . '/topthink/think-helper/src',
-            2 => __DIR__ . '/..' . '/topthink/think-orm/src',
-            3 => __DIR__ . '/..' . '/topthink/think-template/src',
+            0 => __DIR__ . '/..' . '/topthink/think-template/src',
+            1 => __DIR__ . '/..' . '/topthink/think-orm/src',
+            2 => __DIR__ . '/..' . '/topthink/think-container/src',
+            3 => __DIR__ . '/..' . '/topthink/think-helper/src',
         ),
         'taoser\\' => 
         array (
@@ -179,8 +179,8 @@ class ComposerStaticInit9a8811a695ee1e37f8844686c4b86998
         ),
         'support\\' => 
         array (
-            0 => __DIR__ . '/..' . '/webman/cache/src/support',
-            1 => __DIR__ . '/..' . '/webman/think-orm/src/support',
+            0 => __DIR__ . '/..' . '/webman/think-orm/src/support',
+            1 => __DIR__ . '/..' . '/webman/cache/src/support',
             2 => __DIR__ . '/..' . '/workerman/webman-framework/src/support',
         ),
         'app\\View\\Components\\' => 
@@ -209,8 +209,8 @@ class ComposerStaticInit9a8811a695ee1e37f8844686c4b86998
         ),
         'Workerman\\' => 
         array (
-            0 => __DIR__ . '/..' . '/workerman/coroutine/src',
-            1 => __DIR__ . '/..' . '/workerman/workerman/src',
+            0 => __DIR__ . '/..' . '/workerman/workerman/src',
+            1 => __DIR__ . '/..' . '/workerman/coroutine/src',
         ),
         'Webman\\ThinkOrm\\' => 
         array (
@@ -355,10 +355,10 @@ class ComposerStaticInit9a8811a695ee1e37f8844686c4b86998
         ),
         'Illuminate\\Support\\' => 
         array (
-            0 => __DIR__ . '/..' . '/illuminate/collections',
-            1 => __DIR__ . '/..' . '/illuminate/conditionable',
-            2 => __DIR__ . '/..' . '/illuminate/macroable',
-            3 => __DIR__ . '/..' . '/illuminate/support',
+            0 => __DIR__ . '/..' . '/illuminate/support',
+            1 => __DIR__ . '/..' . '/illuminate/collections',
+            2 => __DIR__ . '/..' . '/illuminate/conditionable',
+            3 => __DIR__ . '/..' . '/illuminate/macroable',
         ),
         'Illuminate\\Pipeline\\' => 
         array (
