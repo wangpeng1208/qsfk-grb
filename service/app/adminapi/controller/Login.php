@@ -7,7 +7,7 @@ use app\service\user\UserService;
 
 class Login extends Base
 {
-    protected $noLoginAction = ['login', 'getBackgroundImage'];
+    protected array $noLoginAction = ['login', 'getBackgroundImage'];
 
     // 登录背景图
     public function getBackgroundImage()
@@ -26,9 +26,8 @@ class Login extends Base
         $user->isEmpty() && throw new \Exception('账号不存在');
         password_verify($data['password'], $user->password) || throw new \Exception('密码错误');
 
-        $token = (new UserService())->createToken($user->toArray(), 'admin');
-        $data  = array_merge($user->toArray(), $token);
-        $this->success('登陆成功', $data);
+        $result = (new UserService())->createToken(['id' => $user->id], 'admin');
+        $this->success('登陆成功', $result);
     }
 
 }
