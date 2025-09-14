@@ -10,7 +10,15 @@ use Illuminate\Support\Str;
 class AutoInstallCommand extends Command
 {
     protected static $defaultName = 'auto:install';
-    protected static $defaultDescription = '安装辅助工具';
+    protected static $defaultDescription = 'Linux安装辅助工具';
+
+    /**
+     * windows下
+     * 1. 使用php8.1 以上版本 （Windows PowerShell 下键入 php -v 输出 大于等于php8.2版本以上的字符即为成功，相关教程：https://www.qqss.net/manual/KnightEduMart/143）
+     * 2. 还原数据库（service目录下的mysql.sql文件 还原至你的数据库 要求版本 mysql >= 5.7。推荐mysql 8+）
+     * 3. 配置 .env 文件
+     * 4. 双击启动 windows.bat (不可关闭)
+     */
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -28,8 +36,8 @@ class AutoInstallCommand extends Command
         }
 
         // php 版本检测
-        if (version_compare(PHP_VERSION, '8.1', '<')) {
-            $output->writeln("<error>PHP版本必须大于等于8.1</error>");
+        if (version_compare(PHP_VERSION, '8.2', '<')) {
+            $output->writeln("<error>PHP版本必须大于等于8.2</error>");
             return parent::FAILURE;
         }
 
