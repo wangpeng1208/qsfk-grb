@@ -1,7 +1,7 @@
 <?php
 return [
     // 当前版本号
-    'version'     => getenv('APP_VERSION') ?: 'v1.1.2',
+    'version'     => getenv('APP_VERSION') ?: 'v1.1.3',
     // 使用协议官方网址
     'api_license' => [
         [
