@@ -46,24 +46,27 @@ class UploadService
                 throw new \Exception('文件格式错误');
         }
 
-        $mime  = $file->getUploadMimeType();
+        $mime = $file->getUploadMimeType();
         $ext  = strtolower($file->getUploadExtension());
 
         if (!in_array($mime, $ext_yes) || !in_array($ext, $allow_ext)) {
             throw new \Exception('文件类型不允许');
         }
-        
+
         $this->mkdir($real_path);
+        echo $real_path;
 
         $name = bin2hex(pack('Nn', time(), random_int(1, 65535))) . '.' . $ext;
         $size = $file->getSize();
         $file->move($real_path . '/' . $name);
+
+        // 如果使用站内资源
+        $file_url = conf('site_domain') . $view_path . '/' . $name;
+
         // 如果是证书文件 返回本地绝对路径
         if ($type === 'certificate') {
             $file_url = $real_path . '/' . $name;
         }
-        // 如果使用站内资源
-        $file_url = conf('site_domain') . $view_path . '/' . $name;
 
         if ($type == 'image') {
             $cate_id = inputs('cate_id', 0);
@@ -86,21 +89,11 @@ class UploadService
      */
     public function mkdir($path)
     {
-        if (!is_dir($path)) {
-            try {
-                mkdir($path, 0777, true);
-            } catch (\Exception $e) {
-                throw new \Exception('目录创建失败');
-            }
+        if (!is_dir($path) && !mkdir($path, 0777, true)) {
+            throw new \Exception('目录创建失败');
         }
-
-        // 检查目录是否可写
-        if (!is_writable($path)) {
-            try {
-                chmod($path, 0777);
-            } catch (\Exception $e) {
-                throw new \Exception('目录不可写');
-            }
+        if (!is_writable($path) && !chmod($path, 0777)) {
+            throw new \Exception('目录不可写');
         }
     }
 
