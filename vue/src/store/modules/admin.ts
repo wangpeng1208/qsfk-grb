@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-import { authSafe, getAdminUserInfo, login } from '@/api/admin/user';
+import { getAdminUserInfo, login } from '@/api/admin/user';
 
 export const useAdminUserStore = defineStore('adminUser', {
   state: () => ({
@@ -19,17 +19,6 @@ export const useAdminUserStore = defineStore('adminUser', {
 
     async login(userInfo: Record<string, unknown>) {
       const res = await login(userInfo);
-      if (res.code === 1) {
-        this.accessToken = res.data.access_token;
-      } else {
-        throw res;
-      }
-    },
-    // 安全登录
-    async safeLogin(code: string) {
-      const res = await authSafe({
-        auth_code: code,
-      });
       if (res.code === 1) {
         this.accessToken = res.data.access_token;
       } else {

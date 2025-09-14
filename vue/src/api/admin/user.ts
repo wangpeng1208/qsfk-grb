@@ -7,25 +7,10 @@ export function login(params: any) {
   });
 }
 
-// 二次安全认证
-export function authSafe(params: any) {
-  return request.post({
-    url: '/adminapi/login/authSafe',
-    params,
-  });
-}
-
-// bing背景图
+// 登录背景图
 export function bindBgImg() {
   return request.post({
     url: '/adminapi/login/getBackgroundImage',
-  });
-}
-
-export function checkSafeLogin(params: any) {
-  return request.post({
-    url: '/adminapi/login/checkSafeLogin',
-    params,
   });
 }
 
