@@ -19,11 +19,13 @@ class UploadService
         switch ($type) {
             case 'image':
                 $ext_yes = ['image/jpeg', 'image/gif', 'image/png', 'image/svg+xml', 'image/x-icon',];
+                $allow_ext = ['jpg', 'jpeg', 'gif', 'png', 'svg', 'ico', 'webp'];
                 $view_path = '/upload/' . $app . '/' . $user_id . '/image/' . date('Ymd');
                 $real_path = public_path() . $view_path;
                 break;
             case 'video':
                 $ext_yes = ['video/mp4', 'video/avi', 'video/rmvb', 'video/rm', 'video/asf', 'video/divx', 'video/mpg', 'video/mpeg', 'video/mpe', 'video/wmv', 'video/mkv', 'video/vob'];
+                $allow_ext = ['mp4', 'avi', 'rmvb', 'rm', 'asf', 'divx', 'mpg', 'mpeg', 'mpe', 'wmv', 'mkv', 'vob'];
                 $view_path = '/upload/' . $app . '/' . $user_id . '/video/' . date('Ymd');
                 $real_path = public_path() . $view_path;
                 break;
@@ -36,6 +38,7 @@ class UploadService
                     'application/octet-stream',
                     'text/plain'
                 ];
+                $allow_ext = ['pem', 'crt', 'cer', 'p12', 'pfx', 'der', 'csr'];
                 $view_path = "/crt/{$app}/{$user_id}/" . date('Ymd');
                 $real_path = runtime_path() . $view_path;
                 break;
@@ -43,16 +46,15 @@ class UploadService
                 throw new \Exception('文件格式错误');
         }
 
-        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $mime  = finfo_file($finfo, $file->getPathname());
-        finfo_close($finfo);
-        if (!in_array($mime, $ext_yes)) {
+        $mime  = $file->getUploadMimeType();
+        $ext  = strtolower($file->getUploadExtension());
+
+        if (!in_array($mime, $ext_yes) || !in_array($ext, $allow_ext)) {
             throw new \Exception('文件类型不允许');
         }
-
+        
         $this->mkdir($real_path);
-        // 获取文件后缀
-        $ext  = strtolower($file->getUploadExtension());
+
         $name = bin2hex(pack('Nn', time(), random_int(1, 65535))) . '.' . $ext;
         $size = $file->getSize();
         $file->move($real_path . '/' . $name);
