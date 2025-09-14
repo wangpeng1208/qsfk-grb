@@ -31,7 +31,7 @@ class PayType extends Base
   public function detail()
   {
     $id   = inputs('id/d', 0);
-    $data = PayTypeModel::where(['id' => $id])->find();
+    $data = PayTypeModel::find($id);
     return $this->success('success', $data);
   }
 

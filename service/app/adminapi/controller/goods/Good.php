@@ -24,9 +24,9 @@ class Good extends Base
             ->order("sort desc,id desc")
             ->paginate($this->limit)
             ->each(function ($item) {
-                $item->cate_name          = $item->category->name ?? '分类已删除';             // 分类名称
-                $item->cards_stock_counts = $item->cardsStockCount;            // 库存数量
-                $item->cards_sold_counts = $item->cardsSoldCount;            // 卖出数量
+                $item->cate_name          = $item?->category?->name; // 分类名称
+                $item->cards_stock_counts = $item->cardsStockCount; // 库存数量
+                $item->cards_sold_counts = $item->cardsSoldCount; // 卖出数量
             });
         $this->success('获取成功', [
             'list'  => $list->items(),
@@ -35,11 +35,11 @@ class Good extends Base
     }
 
     // 违禁词检测
-    private function checkWordfilter($name)
+    private function checkWordfilter($name): void
     {
         $check_name = check_wordfilter($name);
         if ($check_name) {
-            $this->error("分类名包含敏感词汇“" . $check_name . "”！");
+            $this->error("分类名包含违禁词汇“" . $check_name . "”！");
         }
     }
 
@@ -128,8 +128,7 @@ class Good extends Base
             }
         }
         // 查询数据放在最后
-        GoodsCategoryModel::where(["id" => $post["cate_id"]])->find() ?:
-            $this->error("不存在该分类！");
+        GoodsCategoryModel::find($post["cate_id"]) ?: $this->error("不存在该分类！");
         return $post;
     }
 
@@ -144,13 +143,13 @@ class Good extends Base
         $post['status']    = 1;
         $post['create_at'] = time();
         $res               = GoodsModel::create($post);
-        return $res ? $this->success("添加商品成功") : $this->error("添加商品失败");
+        return $res ? $this->success("添加成功") : $this->error("添加失败");
     }
 
     public function detail()
     {
         $id   = inputs("id/d", 0);
-        $good = GoodsModel::withTrashed()->where(["id" => $id])->findOrFail();
+        $good = GoodsModel::where(["id" => $id])->findOrFail();
         return $this->success('获取成功', $good);
     }
 
@@ -161,11 +160,11 @@ class Good extends Base
     public function edit()
     {
         $id   = inputs("id/d", 0);
-        $good = GoodsModel::withTrashed()->where(["id" => $id])->find() ?: $this->error("商品不存在！");
+        $good = GoodsModel::where(["id" => $id])->find() ?: $this->error("商品不存在！");
         $post = $this->check_post($id);
         $res  = $good->save($post);
 
-        return $res ? $this->success("编辑商品成功") : $this->error("编辑商品失败");
+        return $res ? $this->success("编辑成功") : $this->error("编辑失败");
     }
 
     /**
@@ -177,7 +176,7 @@ class Good extends Base
         $id   = inputs("id/d", 0);
         $data = $this->getGoods($id);
         $res  = $data->delete();
-        return $res ? $this->success("删除商品成功") : $this->error("删除失败");
+        return $res ? $this->success("删除成功") : $this->error("删除失败");
     }
 
     // 获取商品信息
@@ -188,10 +187,8 @@ class Good extends Base
 
     public function status()
     {
-        $id   = inputs("id/d", 0);
-        $good = $this->getGoods($id);
-        if ($good->is_freeze == 1)
-            $this->error("该商品已被冻结，如果要上架，请修改相关商品信息再上架");
+        $id           = inputs("id/d", 0);
+        $good         = $this->getGoods($id);
         $status       = inputs("val/d", 0);
         $status       = $status ? 1 : 0;
         $status_text  = $status == 1 ? "上架" : "下架";
@@ -241,7 +238,7 @@ class Good extends Base
     {
         $id  = inputs("id/d", 0);
         $res = $card::where(["goods_id" => $id, "status" => 1])->delete();
-        return $res ? $this->success("清空商品未售卡密成功") : $this->error("清空失败！");
+        return $res ? $this->success("清空成功") : $this->error("清空失败！");
     }
 
 }

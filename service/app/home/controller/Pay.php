@@ -16,7 +16,7 @@ class Pay extends Base
             function ($item) {
                 $item->channel_id   = $item->id;
                 $item->product_name = get_paytype($item->paytype)->name ?? ''; // 支付类型名
-                $item->type_text = $item->type_text;
+                $item->setAttr('type_text', $item->type_text);
                 $item->ico  = get_paytype($item->paytype)->ico ?? '';
                 $item->logo = get_paytype($item->paytype)->logo ?? '';
                 unset($item->id);

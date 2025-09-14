@@ -10,7 +10,6 @@ use app\common\exception\HttpResponseException;
 use app\common\model\Channel;
 use app\common\model\GoodsCoupon;
 use app\common\model\OrderMaster;
-use app\service\timer\OrderTimerService;
 use support\Cache;
 
 class OrderService
@@ -86,9 +85,9 @@ class OrderService
             $goods = $order->goods;
             if ($goods === null) {
                 $goods          = new \stdClass();
-                $goods->content = '商品已下架或删除冻结，不支持查看详情';
-                $goods->remark  = '商品已下架或删除冻结，不支持查看详情备注';
-                $goods->name    = '商品已下架或删除冻结，不支持查看商品名';
+                $goods->content = '商品已下架或删除，不支持查看详情';
+                $goods->remark  = '商品已下架或删除，不支持查看详情备注';
+                $goods->name    = '商品已下架或删除，不支持查看商品名';
             } else {
                 $goods = $goods->visible(['content', 'remark', 'name']);
             }

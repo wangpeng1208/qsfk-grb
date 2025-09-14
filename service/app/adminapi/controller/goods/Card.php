@@ -48,9 +48,7 @@ class Card extends Base
     public function add()
     {
         $goods_id = inputs("goods_id/d", 0);
-        GoodsModel::where([
-            "id" => $goods_id
-        ])->find() ?: $this->error("商品不存在");
+        GoodsModel::find($goods_id) ?: $this->error("商品不存在");
         $import_type = inputs("import_type/s", 1);
         $split_type  = inputs("split_type/s", "");
         $content     = inputs("content/s", "");

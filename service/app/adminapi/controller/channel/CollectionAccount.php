@@ -32,18 +32,14 @@ class CollectionAccount extends Base
   {
     $channel_id = inputs('channel_id/d', 0);
     $data       = [];
-    $res        = ChannelModel::where([
-      'id' => $channel_id,
-    ])->find();
-    if ($res) {
-      if ($res->account_fields != '') {
-        $account_fields = explode('|', $res->account_fields);
-        foreach ($account_fields as $key => $value) {
-          [$label, $name] = explode(':', $value);
-          if (isset($name)) {
-            $data[$key]['label'] = $label;
-            $data[$key]['name']  = $name;
-          }
+    $res        = ChannelModel::find($channel_id);
+    if ($res?->account_fields != '') {
+      $account_fields = explode('|', $res->account_fields);
+      foreach ($account_fields as $key => $value) {
+        [$label, $name] = explode(':', $value);
+        if (isset($name)) {
+          $data[$key]['label'] = $label;
+          $data[$key]['name']  = $name;
         }
       }
     }
@@ -57,7 +53,7 @@ class CollectionAccount extends Base
   public function detail()
   {
     $id   = inputs('id/d', 0);
-    $data = ChannelAccountModel::where(['id' => $id])->find();
+    $data = ChannelAccountModel::find($id);
     return $this->success('success', $data);
   }
 
@@ -103,13 +99,8 @@ class CollectionAccount extends Base
    */
   public function del()
   {
-    $id      = inputs('id/d', 0);
-    $account = ChannelAccountModel::where([
-      'id' => $id,
-    ])->find();
-    if (empty($account)) {
-      $this->error('账户不存在');
-    }
+    $id = inputs('id/d', 0);
+    ChannelAccountModel::find($id) ?: $this->error('账户不存在');
     $res = ChannelAccountModel::destroy($id);
     return $res ? $this->success('删除成功！') : $this->error('删除失败！');
   }
@@ -120,11 +111,8 @@ class CollectionAccount extends Base
    */
   public function status()
   {
-    $account_id = inputs('id/d', 0);
-    $account    = ChannelAccountModel::where([
-      'id' => $account_id,
-    ])->find();
-    empty($account) && $this->error('账号不存在');
+    $account_id      = inputs('id/d', 0);
+    $account         = ChannelAccountModel::find($account_id) ?: $this->error('账户不存在');
     $status          = inputs('status/d', 1);
     $account->status = $status;
     $res             = $account->save();
