@@ -90,7 +90,7 @@ export const columns: PrimaryTableCol<TableRowData>[] = [
         html = h(
           Tag,
           {
-            vPerms: "['admin/order/order/notify']",
+            vPerms: "['adminapi/order/order/notify']",
             hover: 'color',
             size: 'small',
             theme: 'primary',
@@ -140,7 +140,7 @@ export const columns: PrimaryTableCol<TableRowData>[] = [
           Link,
           {
             theme: row.is_freeze ? 'danger' : 'success',
-            vPerms: "['admin/order/order/freeze']",
+            vPerms: "['adminapi/order/order/freeze']",
             hover: 'color',
             size: 'small',
             onClick: () => {
