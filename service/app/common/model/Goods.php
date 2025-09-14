@@ -50,13 +50,6 @@ class Goods extends BaseModel
 		$query->where('name', 'like', '%' . $value . '%');
 	}
 
-	public function searchIsFreezeAttr($query, $value, $data)
-	{
-		if ($value != "") {
-			$query->where('is_freeze', '=', $value);
-		}
-	}
-
 	public function searchCateIdAttr($query, $value, $data)
 	{
 		$query->where('cate_id', '=', $value);
