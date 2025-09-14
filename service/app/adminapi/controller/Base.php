@@ -10,15 +10,15 @@ use app\common\exception\HttpResponseException;
 class Base extends Api
 {
     // 用户信息
-    protected $user;
+    protected ?AdminUser $user = null;
     // 每页显示条数
-    protected $limit;
+    protected int $limit = 20;
     // 不需要登录的方法
-    protected $noLoginAction = [];
+    protected array $noLoginAction = [];
     // 需要记录权限的方法
-    protected $permissions = [];
+    protected array $permissions = [];
     // 需要记录操作日志的方法
-    protected $logs = [];
+    protected array $logs = [];
 
     public function __construct()
     {
@@ -55,14 +55,13 @@ class Base extends Api
      */
     protected function checkAuth()
     {
-        // 如果$this->user->roles包含id=1则是超级管理员，直接通过
-        if ($this->user->roles->where('role_id', 1)->count()) {
-            return true;
-        }
+        // 如果$this->user->roles包含1则是超级管理员，直接通过
+        if ($this->user->roles->where('role_id', 1)->count()) return;
         $action     = request()->action;
         $controller = request()->controller;
-        $reflection = new \ReflectionMethod($controller, $action);
-        $docComment = $reflection->getDocComment();
+        $reflectionClass = new \ReflectionClass($controller);
+        $reflection      = $reflectionClass->getMethod($action);
+        $docComment      = $reflection->getDocComment();
         // 注释@auth true则加入权限验证
         if (strpos($docComment, '@auth true')) {
             // if (in_array($action, $this->permissions)) {
