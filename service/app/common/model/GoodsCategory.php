@@ -28,15 +28,14 @@ class GoodsCategory extends BaseModel
 
   public function getCountAttr()
   {
-    $goods = $this->goods()->select();
-    $i     = 0;
-    foreach (collect($goods) as $good) {
-      if ($good->status == 0) {
-        continue;
-      }
-      $i++;
+    return $this->goods()->where('status',1)->count();
+  }
+
+  public static function onAfterInsert(\think\Model $model): void
+  {
+    if (empty($model->getData('sort'))) {
+      $model->where('id', $model->id)->update(['sort' => $model->id]);
     }
-    return $i;
   }
 
 }

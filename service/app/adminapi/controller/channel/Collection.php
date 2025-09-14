@@ -78,8 +78,8 @@ class Collection extends Base
     public function detail()
     {
         $id   = inputs('id/d', 0);
-        $data = ChannelModel::where(['id' => $id])->find();
-        $this->success('success', $data);
+        $data = ChannelModel::find($id);
+        $this->success('', $data);
     }
 
     /**
@@ -126,8 +126,6 @@ class Collection extends Base
     {
         $data      = array_diff_key($this->postData(), ['id']);
         $res       = ChannelModel::create($data);
-        $res->sort = $res->id;
-        $res->save();
         return $res ? $this->success('操作成功') : $this->error('操作失败');
     }
 

@@ -32,4 +32,11 @@ class Channel extends BaseModel
     return $type[$data['is_available']];
   }
 
+  public static function onAfterInsert(\think\Model $model): void
+  {
+    if (empty($model->getData('sort'))) {
+      $model->where('id', $model->id)->update(['sort' => $model->id]);
+    }
+  }
+
 }

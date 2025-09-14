@@ -65,7 +65,6 @@ class category extends Base
     {
         $data = $this->post();
         $res  = GoodsCategoryModel::create($data);
-        empty($res->sort) && GoodsCategoryModel::update(['sort' => $res->id], ['id' => $res->id]);
         $this->success("添加成功！");
     }
 
